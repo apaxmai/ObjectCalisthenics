@@ -1,4 +1,5 @@
 
-public enum JobType {
+public enum JobType
+{
 	ATS, JREQ;
 };

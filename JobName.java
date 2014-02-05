@@ -1,11 +1,13 @@
 
-public class JobName {
+public class JobName
+{
+	public static final JobName invalid = new JobName();
 
-	static final public JobName invalid = new JobName();
-
-	public JobName() {
+	public JobName()
+	{
 	}
-	public JobName(String name) {
+	public JobName(String name)
+	{
 		_name = name;
 	}
 

@@ -1,14 +1,21 @@
 
-public class JobApplications {
+public class JobApplications
+{
 
-	static public JobApplications getInstance() { return INSTANCE; }
+	private static final JobApplications INSTANCE = new JobApplications();
+	//some structure
 
-	static public void add(JobApplication theJobApplication) {
+	public static JobApplications getInstance()
+	{
+		return INSTANCE;
+	}
+
+	public static void add(JobApplication theJobApplication)
+	{
 		//todo
 	}
 
-	protected JobApplications() { }
-
-	static final private JobApplications INSTANCE = new JobApplications();
-	//some structure
+	protected JobApplications()
+	{
+	}
 };

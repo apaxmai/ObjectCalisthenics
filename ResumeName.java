@@ -1,11 +1,13 @@
 
-public class ResumeName {
+public class ResumeName
+{
+	public static final ResumeName invalid = new ResumeName();
 
-	static final public ResumeName invalid = new ResumeName();
-
-	public ResumeName() {
+	public ResumeName()
+	{
 	}
-	public ResumeName(String name) {
+	public ResumeName(String name)
+	{
 		_name = name;
 	}
 

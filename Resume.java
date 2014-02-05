@@ -1,14 +1,18 @@
 
-public class Resume {
+public class Resume
+{
 
-	static final public Resume invalid = new Resume();
+	public static final Resume invalid = new Resume();
 
-	public Resume() {
+	public Resume()
+	{
 	}
-	public Resume(String name) {
+	public Resume(String name)
+	{
 		_name = new ResumeName(name);
 	}
-	public Resume(ResumeName name) {
+	public Resume(ResumeName name)
+	{
 		_name = name;
 	}
 

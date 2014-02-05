@@ -1,7 +1,9 @@
 
 
-public class ObjectCalisthenics {
-	public final static void main(String[] args) {
+public class ObjectCalisthenics
+{
+	public final static void main(String[] args)
+	{
 
 		Employer anEmployer = new Employer("Perfect Cuboid Masonry");
 
@@ -20,15 +22,16 @@ public class ObjectCalisthenics {
 		euler.applyToJob( new EmployerName("Perfect Cuboid Masonry"), new JobName("Groundskeeper") );
 		euler.saveJob( new EmployerName("Perfect Cuboid Masonry"), new JobName("Senior Geometer") );
 
-		try {
+		try
+		{
 			me.applyToJob( new EmployerName("Perfect Cuboid Masonry"), new JobName("Senior Geometer") );
-		} catch (ResumeRequiredException ex) {
+		}
+		catch (ResumeRequiredException ex)
+		{
 			me.createResume("All About Me");
 			me.createResume("Relevant Facts");
 			me.applyToJobWithResume( new ResumeName("Relevant Facts"), new EmployerName("Perfect Cuboid Masonry"), new JobName("Senior Geometer") );
 		}
-
-
 
 	}
 }

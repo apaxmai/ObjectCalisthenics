@@ -1,6 +1,5 @@
 
-public class EmployerID {
-
+public class EmployerID
+{
 	private IdentifyingType _myID;
-
 };

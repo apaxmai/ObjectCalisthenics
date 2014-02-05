@@ -1,13 +1,16 @@
 
-public class EmployerName {
+public class EmployerName
+{
 
-	static final public EmployerName invalid = new EmployerName();
+	public static final EmployerName invalid = new EmployerName();
+	private String _name;
 
-	public EmployerName() {
+	public EmployerName()
+	{
 	}
-	public EmployerName(String name) {
+	public EmployerName(String name)
+	{
 		_name = name;
 	}
 
-	private String _name;
 };

@@ -1,10 +1,13 @@
 
-public class JReqJob extends Job {
+public class JReqJob extends Job
+{
 
-	public JReqJob() {
+	public JReqJob()
+	{
 	}
 
-	public JReqJob(String name) {
+	public JReqJob(String name)
+	{
 		_name = name;
 	}
 

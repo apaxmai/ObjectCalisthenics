@@ -1,18 +1,21 @@
 
-public class IdentifyingType {
+public class IdentifyingType
+{
 
-	public IdentifyingType() {
+	private Integer _data;
+
+	public IdentifyingType()
+	{
 	}
 
-	public IdentifyingType(Integer data) {
+	public IdentifyingType(Integer data)
+	{
 		_data = data;
 	}
 
-	public IdentifyingType(IdentifyingType other) {
+	public IdentifyingType(IdentifyingType other)
+	{
 		this._data = other._data;
 	}
-
-
-	private Integer _data;
 
 };

@@ -1,7 +1,9 @@
 
-class ResumeRequiredException extends Exception {
+class ResumeRequiredException extends Exception
+{
 
-	public ResumeRequiredException() {
+	public ResumeRequiredException()
+	{
 		super();
 	}
 

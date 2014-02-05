@@ -1,14 +1,17 @@
 
-class JobAmbiguousException extends Exception {
+class JobAmbiguousException extends Exception
+{
 
-	public JobAmbiguousException() {
+	public List<JobID> matchingJobs;
+
+	public JobAmbiguousException()
+	{
 		super();
 	}
 
-	public JobAmbiguousException(List<JobID> matchingJobsList) {
+	public JobAmbiguousException(List<JobID> matchingJobsList)
+	{
 		super();
 		matchingJobs = matchingJobsList;
 	}
-
-	public List<JobID> matchingJobs;
 }
