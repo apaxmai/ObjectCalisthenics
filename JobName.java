@@ -1,0 +1,13 @@
+
+public class JobName {
+
+	static final public JobName invalid = new JobName();
+
+	public JobName() {
+	}
+	public JobName(String name) {
+		_name = name;
+	}
+
+	private String _name;
+};
