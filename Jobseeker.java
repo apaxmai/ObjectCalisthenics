@@ -18,6 +18,16 @@ public class Jobseeker {
 		_resumes = new HashMap<ResumeName, Resume>();
 	}
 
+	public void saveJob(Job theJob) {
+		//unimp //todo
+	}
+	public void saveJob(EmployerName eName, JobName jName) {
+		//look up job //unimp //todo
+	}
+
+	public void createResume(String rName) {
+		createResume(new ResumeName(rName));
+	}
 	public void createResume(ResumeName rName) {
 		_resumes.put( rName, new Resume(rName) );
 	}
@@ -39,14 +49,16 @@ public class Jobseeker {
 		}
 
 		try {
-			Jobs.applyToJobWithResumeByEmployerAndJobName(rName, eName, jName);
+			Jobs.acceptApplicationToJobWithResumeByEmployerAndJobName( _id, theResumeToSubmit, eName, jName);
 		} catch (JobAmbiguousException ex) {
-			List<JobID> matchingJobs = ex.matchingJobs();
-			Jobs.applyToJobWithResumeByJobID( rName, matchingJobs.get(0) ); //user would pick
+			List<JobID> matchingJobs = ex.matchingJobs;
+			Jobs.acceptApplicationToJobWithResumeByJobID( _id, theResumeToSubmit, matchingJobs.get(0) ); //user would pick
 		}
 	}
 
-
+	private JobseekerID _id;	//this will need to contain HumanName //todo
 	private HumanName _name;
 	private HashMap<ResumeName, Resume> _resumes;
+	//saving jobs cannot be done yet due to restriction on number of members //todo
+	//move saved jobs data to another class that remembers the map: JobseekerID -> List<JobID>
 }
