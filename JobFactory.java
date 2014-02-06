@@ -12,16 +12,12 @@ public class JobFactory
 
   public static Job jobFrom(JobType theJobType, JobName theJobName)
   {
-    Job retJob;
-
-    if( JobType.ATS == theJobType )
-    {
-      retJob = new ATSJob(theJobName); //pass integer
-    }
+	JobID id = new JobID(new IdentifyingType(jobIDCounter));
+    Job retJob = new ATSJob(id, theJobName);
 
     if( JobType.JREQ == theJobType )
     {
-      retJob = new JReqJob(theJobName);
+      retJob = new JReqJob(id, theJobName);
     }
 
     jobIDCounter++;

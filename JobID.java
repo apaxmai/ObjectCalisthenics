@@ -1,7 +1,8 @@
 
 public class JobID
 {
-
+  private IdentifyingType _myID;
+  
   public JobID()
   {
   }
@@ -11,5 +12,5 @@ public class JobID
     _myID = new IdentifyingType(id);
   }
 
-  private IdentifyingType _myID;
+
 };

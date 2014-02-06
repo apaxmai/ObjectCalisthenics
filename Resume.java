@@ -3,7 +3,8 @@ public class Resume
 {
 
   public static final Resume invalid = new Resume();
-
+  private ResumeName _name;
+  
   public Resume()
   {
   }
@@ -15,8 +16,5 @@ public class Resume
   {
     _name = name;
   }
-
-  private ResumeName _name;
-
 };
 
