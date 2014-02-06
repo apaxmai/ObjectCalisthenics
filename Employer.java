@@ -30,5 +30,15 @@ public class Employer
   {
     Jobs.addJob(id, JobFactory.jobFrom(type, name) );
   }
+  
+  public boolean equalsID(EmployerID eID)
+  {
+    return this.id.equals(eID);
+  }
+  public boolean equalsName(EmployerName eName)
+  {
+	return this.name.getName().equals( eName.getName() );
+	//return this.name.equalsName(eName);
+  }
 
 }

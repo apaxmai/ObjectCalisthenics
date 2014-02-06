@@ -12,5 +12,15 @@ public class EmployerName
   {
     this.name = name;
   }
+  
+  public boolean equalsName( EmployerName eName )
+  {
+	  return this.name.equals(eName);
+  }
+  
+  public String getName()
+  {
+	  return name;
+  }
 
 };

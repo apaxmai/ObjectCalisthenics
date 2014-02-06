@@ -10,7 +10,7 @@ public class IdentifyingType
 
   public IdentifyingType(Integer data)
   {
-    data = data;
+    this.data = data;
   }
 
   public IdentifyingType(IdentifyingType other)
