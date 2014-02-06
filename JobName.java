@@ -2,13 +2,13 @@
 public class JobName
 {
   public static final JobName invalid = new JobName();
-  private String _name;
+  private String name;
   
   public JobName()
   {
   }
   public JobName(String name)
   {
-    _name = name;
+    this.name = name;
   }
 };

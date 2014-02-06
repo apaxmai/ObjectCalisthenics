@@ -2,20 +2,20 @@
 public class HumanName
 {
 
-  private String _givenName;
-  private String _familyName;
+  private String givenName;
+  private String familyName;
 
   public HumanName()
   {
   }
   public HumanName(String givenName)
   {
-    _givenName = givenName;
+    this.givenName = givenName;
   }
   public HumanName(String givenName, String familyName)
   {
-    _givenName = givenName;
-    _familyName = familyName;
+    this.givenName = givenName;
+    this.familyName = familyName;
   }
 
 };

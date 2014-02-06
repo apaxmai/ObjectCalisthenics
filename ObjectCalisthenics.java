@@ -19,18 +19,18 @@ public class ObjectCalisthenics
     try
     {
       euler.applyToJob( new EmployerName("Perfect Cuboid Masonry"), new JobName("CEO") );
-    } catch  (ResumeRequiredException | EmployerAmbiguousException innerEx) { }
+    } catch  (ResumeRequiredException | EmployerAmbiguousException | NoSuchEmployerException innerEx) { }
     try
     {
       euler.applyToJob( new EmployerName("Perfect Cuboid Masonry"), new JobName("Groundskeeper") );
-    } catch  (ResumeRequiredException | EmployerAmbiguousException innerEx) { }
+    } catch  (ResumeRequiredException | EmployerAmbiguousException | NoSuchEmployerException innerEx) { }
     euler.saveJob( new EmployerName("Perfect Cuboid Masonry"), new JobName("Senior Geometer") );
 
     try
     {
       me.applyToJob( new EmployerName("Perfect Cuboid Masonry"), new JobName("Senior Geometer") );
     }
-    catch (ResumeRequiredException | EmployerAmbiguousException ex)
+    catch (ResumeRequiredException ex)
     {
       me.createResume("All About Me");
       me.createResume("Relevant Facts");
@@ -38,10 +38,14 @@ public class ObjectCalisthenics
       {
         me.applyToJobWithResume( new ResumeName("Relevant Facts"), new EmployerName("Perfect Cuboid Masonry"), new JobName("Senior Geometer") );
       }
-      catch (ResumeRequiredException | EmployerAmbiguousException innerEx)
+      catch (ResumeRequiredException | EmployerAmbiguousException | NoSuchEmployerException innerEx)
       {
         //should never happen
       }
+    }
+    catch ( EmployerAmbiguousException | NoSuchEmployerException ex )
+    {
+    	//should never happen
     }
 
   }

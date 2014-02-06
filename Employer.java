@@ -2,25 +2,25 @@
 public class Employer
 {
 
-  private EmployerID _id;
-  private EmployerName _name;
+  private EmployerID id;
+  private EmployerName name;
 
   public Employer()
   { 
   }
   public Employer(String name)
   {
-    _name = new EmployerName(name);
+    this.name = new EmployerName(name);
   }
   public Employer(EmployerID id, EmployerName name)
   {
-    _id = id;
-    _name = name;
+    this.id = id;
+    this.name = name;
   }
 
   public void postJob(Job theJob)
   {
-    Jobs.addJob(_id, theJob);
+    Jobs.addJob(id, theJob);
   }
   public void postJob(JobType type, String name)
   {
@@ -28,7 +28,7 @@ public class Employer
   }
   public void postJob(JobType type, JobName name)
   {
-    Jobs.addJob(_id, JobFactory.jobFrom(type, name) );
+    Jobs.addJob(id, JobFactory.jobFrom(type, name) );
   }
 
 }

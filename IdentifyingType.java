@@ -2,7 +2,7 @@
 public class IdentifyingType
 {
 
-  private Integer _data;
+  private Integer data;
 
   public IdentifyingType()
   {
@@ -10,12 +10,12 @@ public class IdentifyingType
 
   public IdentifyingType(Integer data)
   {
-    _data = data;
+    data = data;
   }
 
   public IdentifyingType(IdentifyingType other)
   {
-    this._data = other._data;
+    this.data = other.data;
   }
 
 };

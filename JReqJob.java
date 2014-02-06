@@ -3,15 +3,15 @@ public class JReqJob extends Job
 {
   public JReqJob(String name)
   {
-    _name = new JobName(name);
+    this.name = new JobName(name);
   }
   public JReqJob(JobName name)
   {
-    _name = name;
+    this.name = name;
   }
   public JReqJob(JobID id, JobName name)
   {
-    _id = id;
-    _name = name;
+    this.id = id;
+    this.name = name;
   }
 };

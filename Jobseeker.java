@@ -45,18 +45,18 @@ public class Jobseeker
     _resumes.put( rName, new Resume(rName) );
   }
 
-  public void applyToJob(EmployerName eName, JobName jName) throws ResumeRequiredException, EmployerAmbiguousException
+  public void applyToJob(EmployerName eName, JobName jName) throws ResumeRequiredException, EmployerAmbiguousException, NoSuchEmployerException
   {
 	  try
 	  {
         applyToJobWithResume(ResumeName.invalid, eName, jName);
 	  }
-      catch (ResumeRequiredException ex)
+      catch (ResumeRequiredException | NoSuchEmployerException ex)
       {
         throw ex;
       }
   }
-  public void applyToJobWithResume(ResumeName rName, EmployerName eName, JobName jName) throws ResumeRequiredException, EmployerAmbiguousException
+  public void applyToJobWithResume(ResumeName rName, EmployerName eName, JobName jName) throws ResumeRequiredException, EmployerAmbiguousException, NoSuchEmployerException
   {
     Resume theResumeToSubmit = Resume.invalid;
     if( ResumeName.invalid != rName )
@@ -75,11 +75,16 @@ public class Jobseeker
       {
         Jobs.acceptApplicationToJobWithResumeByJobID( _id, theResumeToSubmit, matchingJobs.get(0) ); //user would pick
       }
-      catch (ResumeRequiredException innerRREx){ throw innerRREx; }
+      catch (ResumeRequiredException innerRREx)
+      {
+        throw innerRREx;
+      }
     }
-    catch (ResumeRequiredException RREx){ throw RREx; }
-    catch (EmployerAmbiguousException EAEx) { throw EAEx; }
-   
+    catch (ResumeRequiredException | EmployerAmbiguousException | NoSuchEmployerException ex)
+    {
+      throw ex;
+    }
+
   }
 
 }

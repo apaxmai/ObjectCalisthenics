@@ -3,14 +3,14 @@ public class EmployerName
 {
 
   public static final EmployerName invalid = new EmployerName();
-  private String _name;
+  private String name;
 
   public EmployerName()
   {
   }
   public EmployerName(String name)
   {
-    _name = name;
+    this.name = name;
   }
 
 };
