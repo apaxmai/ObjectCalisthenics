@@ -2,9 +2,9 @@
 class ResumeRequiredException extends Exception
 {
 
-	public ResumeRequiredException()
-	{
-		super();
-	}
+  public ResumeRequiredException()
+  {
+    super();
+  }
 
 }

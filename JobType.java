@@ -1,5 +1,5 @@
 
 public enum JobType
 {
-	ATS, JREQ;
+  ATS, JREQ;
 };

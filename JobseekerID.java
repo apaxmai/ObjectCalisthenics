@@ -1,6 +1,6 @@
 
 public class JobseekerID
 {
-	private IdentifyingType _myID;
+  private IdentifyingType _myID;
 };
 
