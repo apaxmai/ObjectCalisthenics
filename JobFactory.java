@@ -2,13 +2,7 @@
 public class JobFactory
 {
 
-  private static final JobFactory INSTANCE = new JobFactory();
-  private static Integer jobIDCounter = 0;
-
-  public static JobFactory getInstance()
-  {
-    return INSTANCE;
-  }
+  private static Integer jobIDCounter;
 
   public static Job jobFrom(JobType theJobType, JobName theJobName)
   {
@@ -24,7 +18,8 @@ public class JobFactory
     return retJob;
   }
 
-  protected JobFactory()
+  public JobFactory()
   {
+    jobIDCounter = 0;
   }
 }

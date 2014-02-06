@@ -7,20 +7,7 @@ public class ObjectCalisthenics
 	
 	Employers.add( EmployerFactory.employerFrom( new EmployerName("Perfect Cuboid Masonry") ) );
 	//Employers.add( EmployerFactory.employerFrom( new EmployerName("Perfect Cuboid Masonry") ) ); //a second one, with no jobs.
-	
-	try
-	{
-	  Employers.firstEmployerByNamePostJob(
-			new EmployerName("Fake Employer !!DEBUG"),
-			JobType.ATS,
-			new JobName("CEO")
-		);
-	}
-	catch (NoSuchEmployerException ex)
-	{
-		System.out.println("Fake Employer not found. [OK]");
-	}
-	
+		
 	try
 	{
 	  Employers.firstEmployerByNamePostJob(
@@ -28,24 +15,48 @@ public class ObjectCalisthenics
 			JobType.ATS,
 			new JobName("CEO")
 		);
+	  System.out.println("Created ATS CEO");
+	}
+	catch (NoSuchEmployerException ex){ System.out.println("Exception: Cannot find the masonry [FAILED]: "+ex); }
+
+	try
+	{
+	  Employers.firstEmployerByNamePostJob(
+			new EmployerName("Perfect Cuboid Masonry"),
+			JobType.ATS,
+			new JobName("Groundskeeper")
+		);
+	  System.out.println("Created ATS Groundskeeper");
 	}
 	catch (NoSuchEmployerException ex){ System.out.println("Exception: Cannot find the masonry [FAILED]: "+ex); }
 	
-    //anEmployer.postJob(JobType.ATS, "CEO");
-    System.out.println("Created ATS CEO");
-    //anEmployer.postJob(JobType.ATS, "Groundskeeper");	//multiple jobs with same name and employer
-    System.out.println("Created ATS Groundskeeper");
-    //anEmployer.postJob(JobType.ATS, "Groundskeeper");
-    System.out.println("Created ATS Groundskeeper");
-    //anEmployer.postJob(JobType.ATS, "Groundskeeper");
-    System.out.println("Created ATS Groundskeeper");
-    //anEmployer.postJob(JobType.JREQ, "Senior Geometer");
-    System.out.println("Created JREQ Senior Geometer");
+	try
+	{
+	  Employers.firstEmployerByNamePostJob(
+			new EmployerName("Perfect Cuboid Masonry"),
+			JobType.ATS,
+			new JobName("Groundskeeper")
+		);
+	  System.out.println("Created ATS Groundskeeper");
+	}
+	catch (NoSuchEmployerException ex){ System.out.println("Exception: Cannot find the masonry [FAILED]: "+ex); }
+	
+	try
+	{
+	  Employers.firstEmployerByNamePostJob(
+			new EmployerName("Perfect Cuboid Masonry"),
+			JobType.JREQ,
+			new JobName("Senior Geometer")
+		);
+	  System.out.println("Created JREQ Senior Geometer");
+	}
+	catch (NoSuchEmployerException ex){ System.out.println("Exception: Cannot find the masonry [FAILED]: "+ex); }
+
 
     Jobseeker euler = new Jobseeker("Leonhard", "Euler");
-    System.out.println("Created new Jobseeker");
+    System.out.println("Created new Jobseeker "+ euler);
     Jobseeker me = new Jobseeker("Charles", "Morris");
-    System.out.println("Created new Jobseeker");
+    System.out.println("Created new Jobseeker "+ me);
     
     try
     {
@@ -68,7 +79,7 @@ public class ObjectCalisthenics
     }
     catch (ResumeRequiredException ex)
     {
-      System.out.println("Jobseeker recieved a ResumeRequiredException");
+      System.out.println("Jobseeker recieved a ResumeRequiredException... creating a resume");
       me.createResume("All About Me");
       me.createResume("Relevant Facts");
       try

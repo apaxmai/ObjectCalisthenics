@@ -3,18 +3,18 @@ public class Resume
 {
 
   public static final Resume invalid = new Resume();
-  private ResumeName _name;
+  private ResumeName name;
   
   public Resume()
   {
   }
   public Resume(String name)
   {
-    _name = new ResumeName(name);
+    this.name = new ResumeName(name);
   }
   public Resume(ResumeName name)
   {
-    _name = name;
+    this.name = name;
   }
 };
 

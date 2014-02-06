@@ -61,39 +61,39 @@ class Jobs
     EmployerID theEmployerID = EmployerID.invalid;
     try
     {
-    	theEmployerID = Employers.findEmployerByName(eName);
+      theEmployerID = Employers.findEmployerByName(eName);
     }
     catch(EmployerAmbiguousException ex)
     {
-    	throw ex;
+      throw ex;
     }
     
     if( theEmployerID == EmployerID.invalid )
     {
-    	throw new NoSuchEmployerException();
+      throw new NoSuchEmployerException();
     }
     
+    JobID matchingJobID = JobID.invalid;
     try
     {
-    	List<JobID> matchingJobIDsList = Jobs.findJobIDsByEmployerIDAndJobName(theEmployerID, jName);
+      matchingJobID = Jobs.findJobIDsByEmployerIDAndJobName(theEmployerID, jName);
     }
     catch(JobAmbiguousException ex)
     {
-    	throw ex;
+      throw ex;
     }
     
-    //accept application.
-    
+    //accept the application.
+    JobApplications.add( new JobApplication(theJobseekerID, theResume, matchingJobID) );
+  }
+
+  private static JobID findJobIDsByEmployerIDAndJobName(EmployerID theEmployerID, JobName jName) throws JobAmbiguousException
+  {
+    throw new JobAmbiguousException();
     //throw new JobAmbiguousException(matchingJobsList);
   }
 
-private static List<JobID> findJobIDsByEmployerIDAndJobName(EmployerID theEmployerID, JobName jName) throws JobAmbiguousException
-{
-	// todo
-	throw new JobAmbiguousException();
-}
-
-public static void acceptApplicationToJobWithResumeByJobID(JobseekerID theJobseekerID, Resume theResume, JobID theJobID ) throws ResumeRequiredException
+  public static void acceptApplicationToJobWithResumeByJobID(JobseekerID theJobseekerID, Resume theResume, JobID theJobID ) throws ResumeRequiredException
   {
 
     //Look up Job by theJobID
