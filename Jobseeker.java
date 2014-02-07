@@ -1,90 +1,77 @@
-
-import java.util.Collection;
-import java.util.List;
 import java.util.HashMap;
 
 public class Jobseeker
 {
-  private JobseekerID _id;	//this will need to contain HumanName //todo
-  private HumanName _name;
-  private HashMap<ResumeName, Resume> _resumes;
-  //saving jobs cannot be done yet due to restriction on number of members //todo
-  //move saved jobs data to another class that remembers the map: JobseekerID -> List<JobID>
+  private JobseekerID                 id;     // this will need to contain HumanName //todo
+  private HumanName                   name;
+  private HashMap<ResumeName, Resume> resumes;
 
-  public Jobseeker()
-  {
-    _name = new HumanName();
-    _resumes = new HashMap<ResumeName, Resume>();
-  }
+  // saving jobs cannot be done yet due to restriction on number of members //todo
+  // move saved jobs data to another class that remembers the map: JobseekerID -> List<JobID>
+
   public Jobseeker(String givenName)
   {
-    _name = new HumanName(givenName);
-    _resumes = new HashMap<ResumeName, Resume>();
+    name = new HumanName(givenName);
+    resumes = new HashMap<ResumeName, Resume>();
   }
-  public Jobseeker(String givenName, String familyName)
+
+  public Jobseeker(String givenName,
+                   String familyName)
   {
-    _name = new HumanName(givenName, familyName);
-    _resumes = new HashMap<ResumeName, Resume>();
+    name = new HumanName(givenName, familyName);
+    resumes = new HashMap<ResumeName, Resume>();
   }
 
   public void saveJob(Job theJob)
   {
-    //unimp //todo
+    // unimp //todo
   }
-  public void saveJob(EmployerName eName, JobName jName)
+
+  public void saveJob(EmployerName eName,
+                      JobName jName)
   {
-    //look up job //unimp //todo
+    // look up job //unimp //todo
   }
 
   public void createResume(String rName)
   {
     createResume(new ResumeName(rName));
   }
+
   public void createResume(ResumeName rName)
   {
-    _resumes.put( rName, new Resume(rName) );
+    resumes.put(rName, new Resume(rName));
   }
 
-  public void applyToJob(EmployerName eName, JobName jName) throws ResumeRequiredException, EmployerAmbiguousException, NoSuchEmployerException
+  public void applyToJob(Job job) throws ResumeRequiredException
   {
-	  try
-	  {
-        applyToJobWithResume(ResumeName.invalid, eName, jName);
-	  }
-      catch (ResumeRequiredException | NoSuchEmployerException ex)
-      {
-        throw ex;
-      }
+    JobApplicationManager.acceptApplicationToJob(this, job);
   }
-  public void applyToJobWithResume(ResumeName rName, EmployerName eName, JobName jName) throws ResumeRequiredException, EmployerAmbiguousException, NoSuchEmployerException
+
+  public void applyToJobWithResume(Job job,
+                                   ResumeName rName) throws ResumeRequiredException
   {
     Resume theResumeToSubmit = Resume.invalid;
-    if( ResumeName.invalid != rName )
+    if (ResumeName.invalid != rName)
     {
-      theResumeToSubmit = _resumes.get(rName);
+      theResumeToSubmit = resumes.get(rName);
     }
 
     try
     {
-      Jobs.acceptApplicationToJobWithResumeByEmployerAndJobName( _id, theResumeToSubmit, eName, jName);
+      JobApplicationManager.acceptApplicationToJobWithResume(this, job, theResumeToSubmit);
     }
-    catch (JobAmbiguousException ex)
-    {
-      List<JobID> matchingJobs = ex.matchingJobs;
-      try
-      {
-        Jobs.acceptApplicationToJobWithResumeByJobID( _id, theResumeToSubmit, matchingJobs.get(0) ); //user would pick
-      }
-      catch (ResumeRequiredException innerRREx)
-      {
-        throw innerRREx;
-      }
-    }
-    catch (ResumeRequiredException | EmployerAmbiguousException | NoSuchEmployerException ex)
+    catch (ResumeRequiredException ex)
     {
       throw ex;
     }
 
+  }
+
+  @Override
+  public String toString()
+  {
+    return name.toString();
   }
 
 }

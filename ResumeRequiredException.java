@@ -1,4 +1,3 @@
-
 class ResumeRequiredException extends Exception
 {
 

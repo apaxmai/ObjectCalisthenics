@@ -1,81 +1,61 @@
-
-
 public class ObjectCalisthenics
 {
   public final static void main(String[] args)
   {
-	
-	Employers.add( EmployerFactory.employerFrom( new EmployerName("Perfect Cuboid Masonry") ) );
-	//Employers.add( EmployerFactory.employerFrom( new EmployerName("Perfect Cuboid Masonry") ) ); //a second one, with no jobs.
-		
-	try
-	{
-	  Employers.firstEmployerByNamePostJob(
-			new EmployerName("Perfect Cuboid Masonry"),
-			JobType.ATS,
-			new JobName("CEO")
-		);
-	  System.out.println("Created ATS CEO");
-	}
-	catch (NoSuchEmployerException ex){ System.out.println("Exception: Cannot find the masonry [FAILED]: "+ex); }
 
-	try
-	{
-	  Employers.firstEmployerByNamePostJob(
-			new EmployerName("Perfect Cuboid Masonry"),
-			JobType.ATS,
-			new JobName("Groundskeeper")
-		);
-	  System.out.println("Created ATS Groundskeeper");
-	}
-	catch (NoSuchEmployerException ex){ System.out.println("Exception: Cannot find the masonry [FAILED]: "+ex); }
-	
-	try
-	{
-	  Employers.firstEmployerByNamePostJob(
-			new EmployerName("Perfect Cuboid Masonry"),
-			JobType.ATS,
-			new JobName("Groundskeeper")
-		);
-	  System.out.println("Created ATS Groundskeeper");
-	}
-	catch (NoSuchEmployerException ex){ System.out.println("Exception: Cannot find the masonry [FAILED]: "+ex); }
-	
-	try
-	{
-	  Employers.firstEmployerByNamePostJob(
-			new EmployerName("Perfect Cuboid Masonry"),
-			JobType.JREQ,
-			new JobName("Senior Geometer")
-		);
-	  System.out.println("Created JREQ Senior Geometer");
-	}
-	catch (NoSuchEmployerException ex){ System.out.println("Exception: Cannot find the masonry [FAILED]: "+ex); }
+    Employer theMasonry = EmployerFactory.employerFrom(new EmployerName("Perfect Cuboid Masonry"));
+    Employer numbersRUs = EmployerFactory.employerFrom(new EmployerName("Numbers     -R-     Us"));
 
+    Job masonryCEOJob = JobFactory.jobFrom(JobType.ATS, new JobName("CEO"));
+    Job masonryGroundskeeperJob1 = JobFactory.jobFrom(JobType.ATS, new JobName("Groundskeeper"));
+    Job masonryGroundskeeperJob2 = JobFactory.jobFrom(JobType.ATS, new JobName("Groundskeeper"));
+    Job masonryGroundskeeperJob3 = JobFactory.jobFrom(JobType.ATS, new JobName("Groundskeeper"));
+    Job masonrySeniorGeometerJob = JobFactory.jobFrom(JobType.JREQ, new JobName("Senior Geometer"));
 
+    Job numberStoreJob = JobFactory.jobFrom(JobType.ATS, new JobName("Head of 64-bit Unsigned Integer Sales"));
+
+    theMasonry.postJob(masonryCEOJob);
+    theMasonry.postJob(masonryGroundskeeperJob1);
+    theMasonry.postJob(masonryGroundskeeperJob2);
+    theMasonry.postJob(masonryGroundskeeperJob3);
+    theMasonry.postJob(masonrySeniorGeometerJob);
+
+    numbersRUs.postJob(numberStoreJob);
+
+    Jobseeker sophie = new Jobseeker("Sophie", "Germain");
     Jobseeker euler = new Jobseeker("Leonhard", "Euler");
-    System.out.println("Created new Jobseeker "+ euler);
     Jobseeker me = new Jobseeker("Charles", "Morris");
-    System.out.println("Created new Jobseeker "+ me);
-    
+
+    try
+    {
+      sophie.applyToJob(numberStoreJob);
+    }
+    catch (ResumeRequiredException e)
+    {}
+
     try
     {
       System.out.println("Jobseeker applying to ATS CEO without Resume");
-      euler.applyToJob( new EmployerName("Perfect Cuboid Masonry"), new JobName("CEO") );
-    } catch  (ResumeRequiredException | EmployerAmbiguousException | NoSuchEmployerException innerEx) { }
+      euler.applyToJob(masonryCEOJob);
+    }
+    catch (ResumeRequiredException innerEx)
+    {}
+
     try
     {
-      System.out.println("Jobseeker applying to ATS Grounskeeper without Resume");
-      euler.applyToJob( new EmployerName("Perfect Cuboid Masonry"), new JobName("Groundskeeper") );
-    } catch  (ResumeRequiredException | EmployerAmbiguousException | NoSuchEmployerException innerEx) { }
-    
+      System.out.println("Jobseeker applying to ATS Groundskeeper without Resume");
+      euler.applyToJob(masonryGroundskeeperJob1);
+    }
+    catch (ResumeRequiredException innerEx)
+    {}
+
     System.out.println("Jobseeker saving job Senior Geometer");
-    euler.saveJob( new EmployerName("Perfect Cuboid Masonry"), new JobName("Senior Geometer") );
+    euler.saveJob(masonrySeniorGeometerJob);
 
     try
     {
       System.out.println("Jobseeker applying to JREQ Senior Geometer without Resume");
-      me.applyToJob( new EmployerName("Perfect Cuboid Masonry"), new JobName("Senior Geometer") );
+      me.applyToJob(masonrySeniorGeometerJob);
     }
     catch (ResumeRequiredException ex)
     {
@@ -84,17 +64,13 @@ public class ObjectCalisthenics
       me.createResume("Relevant Facts");
       try
       {
-    	System.out.println("Jobseeker applying to JREQ Senior Geometer with Resume");
-        me.applyToJobWithResume( new ResumeName("Relevant Facts"), new EmployerName("Perfect Cuboid Masonry"), new JobName("Senior Geometer") );
+        System.out.println("Jobseeker applying to JREQ Senior Geometer with Resume");
+        me.applyToJobWithResume(masonrySeniorGeometerJob, new ResumeName("Relevant Facts"));
       }
-      catch (ResumeRequiredException | EmployerAmbiguousException | NoSuchEmployerException innerEx)
+      catch (ResumeRequiredException ex2)
       {
-    	System.out.println("Exception: Jobseeker applying to JREQ Senior Geometer with Resume [FAILED]: "+innerEx);
+        System.out.println("Exception: Jobseeker applying to JREQ Senior Geometer with Resume [FAILED]: " + ex2);
       }
-    }
-    catch ( EmployerAmbiguousException | NoSuchEmployerException ex )
-    {
-      System.out.println("Exception: Jobseeker applying to JREQ Senior Geometer without Resume [FAILED]: "+ex);
     }
 
   }
