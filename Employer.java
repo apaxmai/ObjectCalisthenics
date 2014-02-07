@@ -30,7 +30,6 @@ public class Employer
   public boolean equalsName(EmployerName eName)
   {
     return this.name.toString().equals(eName.toString());
-    // return this.name.equalsName(eName);
   }
 
   @Override

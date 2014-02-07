@@ -1,10 +1,13 @@
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 public class ObjectCalisthenics
 {
   public final static void main(String[] args)
   {
 
     Employer theMasonry = EmployerFactory.employerFrom(new EmployerName("Perfect Cuboid Masonry"));
-    Employer numbersRUs = EmployerFactory.employerFrom(new EmployerName("Numbers     -R-     Us"));
+    Employer numbersRUs = EmployerFactory.employerFrom(new EmployerName("Numbers-R-Us"));
 
     Job masonryCEOJob = JobFactory.jobFrom(JobType.ATS, new JobName("CEO"));
     Job masonryGroundskeeperJob1 = JobFactory.jobFrom(JobType.ATS, new JobName("Groundskeeper"));
@@ -73,5 +76,8 @@ public class ObjectCalisthenics
       }
     }
 
+    String today = new SimpleDateFormat("yyyyMMdd").format(Calendar.getInstance().getTime());
+    TheLadders.reportForJobApplicationsByDay(today, ReportFormatType.CSV);
+    
   }
 }

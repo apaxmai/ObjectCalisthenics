@@ -1,6 +1,5 @@
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 public class JobApplication
 {
@@ -46,6 +45,16 @@ public class JobApplication
   public String toString()
   {
     return jobseeker.toString() + ':' + resume.toString() + ':' + job.toString() + ':' + date;
+  }
+
+  public Job getJob()
+  {
+    return job;
+  }
+
+  public Jobseeker getJobseeker()
+  {
+    return jobseeker;
   }
 
 };
