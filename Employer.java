@@ -22,16 +22,46 @@ public class Employer
     Globals.postedJobRepository.addJob(this, JobFactory.jobFrom(type, name));
   }
 
-  public boolean equalsID(EmployerID eID)
+  
+  public boolean equals(Employer employer)
   {
-    return this.id.equals(eID);
+    return employer.equals(this.id) && employer.equals(this.name);
+  }
+  
+  public boolean equals(EmployerID employerID)
+  {
+    return this.id.equals(employerID);
   }
 
-  public boolean equalsName(EmployerName eName)
+  public boolean equals(EmployerName employerName)
   {
-    return this.name.toString().equals(eName.toString());
+    return this.name.equals(employerName);
   }
 
+  @Override
+  public boolean equals(Object o)
+  {
+    if (o instanceof Employer)
+    {
+      return (this.equals((Employer) o));
+    }
+    if (o instanceof EmployerID)
+    {
+      return (this.equals((EmployerID) o));
+    }
+    if (o instanceof EmployerName)
+    {
+      return (this.equals((EmployerName) o));
+    }
+    return false;
+  }
+  
+  @Override
+  public int hashCode()
+  {
+    return id.hashCode() ^ name.hashCode();
+  }
+  
   @Override
   public String toString()
   {

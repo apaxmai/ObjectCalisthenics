@@ -2,7 +2,7 @@ import java.util.HashMap;
 
 public class Jobseeker
 {
-  private JobseekerID                 id;     // this will need to contain HumanName //todo
+  //private JobseekerID                 id;     // this will need to contain HumanName //todo
   private HumanName                   name;
   private HashMap<ResumeName, Resume> resumes;
 
@@ -25,12 +25,6 @@ public class Jobseeker
   public void saveJob(Job theJob)
   {
     // unimp //todo
-  }
-
-  public void saveJob(EmployerName eName,
-                      JobName jName)
-  {
-    // look up job //unimp //todo
   }
 
   public void createResume(String rName)

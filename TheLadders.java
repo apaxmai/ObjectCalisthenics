@@ -16,7 +16,7 @@ public class TheLadders
   public static void reportForJobApplicationsByDay(String date,
                                                    ReportFormatType theReportFormatType)
   {
-    Report report = new Report(4);
+    Report report = new Report();
     List<JobApplication> applications = Globals.jobApplicationRepository.jobApplicationsByDay(date);
     
     for( JobApplication application : applications )

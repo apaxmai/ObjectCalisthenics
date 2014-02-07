@@ -1,23 +1,30 @@
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.ArrayList;
+
 public class Report
 {
-
-  //a report has `n` columns and lots of rows.
-  //define columns in constructor and addRow
+  private List< Object[] > rows;
   
-  public Report(Integer n)
+  public Report()
   {
-    // todo
+    rows = new ArrayList<Object[]>();
   }
 
   public void addRow(Object... fields)
   {
-    Integer i = 0;
-    for( Object field : fields )
-    {
-      //col[i] = field.toString();
-      i++;
-    }
+    rows.add(fields);
   }
   
+  public List<Object> row(Integer rowNum)
+  {
+    return new ArrayList<Object>( Arrays.asList(rows.get(rowNum)) );
+  }
+  
+  public Integer length()
+  {
+    return rows.size();
+  }
+
 }

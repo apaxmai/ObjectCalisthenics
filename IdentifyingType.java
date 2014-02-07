@@ -1,6 +1,5 @@
 public class IdentifyingType
 {
-
   private Integer data;
 
   public IdentifyingType()
@@ -16,14 +15,19 @@ public class IdentifyingType
     this.data = other.data;
   }
 
-  public boolean equalsIdentifyingType(IdentifyingType id)
+  public boolean equals(IdentifyingType id)
   {
-    return id.equalsInteger(this.data);
+    return id.equals(this.data);
   }
 
-  public boolean equalsInteger(Integer data)
+  public boolean equals(Integer data)
   {
     return (this.data == data);
   }
-
+  
+  @Override
+  public int hashCode()
+  {
+    return (101 * data);
+  }
 };

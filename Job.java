@@ -3,16 +3,36 @@ public abstract class Job
   protected JobID   id;
   protected JobName name;
 
-  public boolean equalsJob(Job job)
+  public boolean equals(Job job)
   {
-    return job.equalsJobID(id);
+    return job.equals(id);
   }
 
-  public boolean equalsJobID(JobID id)
+  public boolean equals(JobID id)
   {
-    return this.id.equalsJobID(id);
+    return this.id.equals(id);
   }
 
+  @Override
+  public boolean equals(Object o)
+  {
+    if( o instanceof Job )
+    {
+      return this.equals((Job) o);
+    }
+    if( o instanceof JobID )
+    {
+      return this.equals((JobID) o);
+    }
+    return false;
+  }
+  
+  @Override
+  public int hashCode()
+  {
+    return (1033 * name.hashCode());
+  }
+  
   public String toString()
   {
     return name.toString();

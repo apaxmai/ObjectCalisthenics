@@ -22,7 +22,7 @@ public class MemoryResidentJobRepository implements JobRepository
     // this is not main, if I had a SQL database ...
     for (Pair<Employer, Job> p : jobs)
     {
-      if (job.equalsJob(p.getSecond()))
+      if (job.equals(p.getSecond()))
       {
         return p.getFirst();
       }

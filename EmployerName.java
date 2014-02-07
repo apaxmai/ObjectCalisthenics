@@ -12,9 +12,21 @@ public class EmployerName
     this.name = name;
   }
 
-  public boolean equalsName(EmployerName eName)
+  public boolean equals(EmployerName eName)
   {
     return this.name.equals(eName);
+  }
+  
+  @Override
+  public boolean equals(Object o)
+  {
+    return (o instanceof EmployerName) && (this.equals((EmployerName) o));
+  }
+  
+  @Override
+  public int hashCode()
+  {
+    return (1031 * name.hashCode());
   }
 
   @Override
