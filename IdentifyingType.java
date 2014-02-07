@@ -1,9 +1,6 @@
 public class IdentifyingType
 {
-  private Integer data;
-
-  public IdentifyingType()
-  {}
+  private final Integer data;
 
   public IdentifyingType(Integer data)
   {
@@ -24,7 +21,7 @@ public class IdentifyingType
   {
     return (this.data == data);
   }
-  
+
   @Override
   public int hashCode()
   {

@@ -1,12 +1,11 @@
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.ArrayList;
 
 public class Report
 {
-  private List< Object[] > rows;
-  
+  private List<Object[]> rows;
+
   public Report()
   {
     rows = new ArrayList<Object[]>();
@@ -16,12 +15,12 @@ public class Report
   {
     rows.add(fields);
   }
-  
+
   public List<Object> row(Integer rowNum)
   {
-    return new ArrayList<Object>( Arrays.asList(rows.get(rowNum)) );
+    return new ArrayList<Object>(Arrays.asList(rows.get(rowNum)));
   }
-  
+
   public Integer length()
   {
     return rows.size();

@@ -1,8 +1,7 @@
-
 public class JobID
 {
-  public static JobID     invalid;
-  private IdentifyingType id;
+  public static JobID           invalid;
+  private final IdentifyingType id;
 
   public JobID(IdentifyingType id)
   {
@@ -18,20 +17,20 @@ public class JobID
   {
     return id.equals(this.id);
   }
-  
+
   @Override
   public boolean equals(Object o)
   {
     return (o instanceof JobID) && (this.equals((JobID) o));
   }
-  
+
   @Override
   public int hashCode()
   {
     return (1013 * id.hashCode());
   }
-  
 
-  //because of .equals() and .hashCode(), it does not make sense to perform .equals() on mutable objects
+  // because of .equals() and .hashCode(), it does not make sense to perform .equals() on mutable
+  // objects
 
 };

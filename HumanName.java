@@ -19,7 +19,7 @@ public class HumanName
   @Override
   public String toString()
   {
-    return (this.givenName +" "+ this.familyName);
+    return (this.givenName + " " + this.familyName);
   }
 
 };

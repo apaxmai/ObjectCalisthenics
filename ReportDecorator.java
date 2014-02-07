@@ -1,7 +1,6 @@
-
 public interface ReportDecorator
 {
-  //decoratedreport (?)
+  // decoratedreport (?)
   String decorate(Report report);
 
 }

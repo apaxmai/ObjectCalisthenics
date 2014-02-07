@@ -10,12 +10,14 @@ public class MemoryResidentJobApplicationRepository implements JobApplicationRep
     jobApplications = new ArrayList<>();
   }
 
+  @Override
   public void addJobApplication(JobApplication jobApplication)
   {
     jobApplications.add(jobApplication);
   }
 
   // todo: public JobApplications ...
+  @Override
   public List<JobApplication> jobApplicationsByDay(String date)
   {
 
@@ -33,6 +35,28 @@ public class MemoryResidentJobApplicationRepository implements JobApplicationRep
                                   JobApplication application)
   {
     if (application.appliedOnDate(date))
+    {
+      applications.add(application);
+    }
+  }
+
+  @Override
+  public List<JobApplication> jobApplicationsByJobseeker(Jobseeker jobseeker)
+  {
+    List<JobApplication> applications = new ArrayList<>();
+    for (JobApplication application : jobApplications)
+    {
+      addToListIfCreatedByJobseeker(applications, application, jobseeker);
+    }
+
+    return applications;
+  }
+
+  private void addToListIfCreatedByJobseeker(List<JobApplication> applications,
+                                             JobApplication application,
+                                             Jobseeker jobseeker)
+  {
+    if (jobseeker.equals(application.getJobseeker()))
     {
       applications.add(application);
     }

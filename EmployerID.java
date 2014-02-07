@@ -7,7 +7,7 @@ public class EmployerID
   {
     this.id = new IdentifyingType(id);
   }
-  
+
   public boolean equals(EmployerID id)
   {
     return id.equals(this.id);
@@ -17,13 +17,13 @@ public class EmployerID
   {
     return id.equals(this.id);
   }
-  
+
   @Override
   public boolean equals(Object o)
   {
     return (o instanceof EmployerID) && (this.equals((EmployerID) o));
   }
-  
+
   @Override
   public int hashCode()
   {

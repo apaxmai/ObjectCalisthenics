@@ -2,7 +2,7 @@ import java.util.HashMap;
 
 public class Jobseeker
 {
-  //private JobseekerID                 id;     // this will need to contain HumanName //todo
+  // private JobseekerID id; // this will need to contain HumanName //todo
   private HumanName                   name;
   private HashMap<ResumeName, Resume> resumes;
 
@@ -53,13 +53,27 @@ public class Jobseeker
 
     try
     {
-      JobApplicationManager.acceptApplicationToJobWithResume(this, job, theResumeToSubmit);
+      JobApplicationManager.acceptApplicationToJob(this, job, theResumeToSubmit);
     }
     catch (ResumeRequiredException ex)
     {
       throw ex;
     }
 
+  }
+
+  // (5) Jobseekers should be able to see a listing of jobs they have saved for later viewing.
+  // //todo
+  public void getListingOfSavedJobs()
+  {
+
+  }
+
+  // (6) Jobseekers should be able to see a listing of the jobs for which they have applied. //todo
+  public void getListingOfAppliedJobs()
+  {
+    Jobs appliedJobs = JobApplicationManager.appliedJobs(this);
+    // display //todo
   }
 
   @Override

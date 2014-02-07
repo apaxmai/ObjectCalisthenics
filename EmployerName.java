@@ -16,13 +16,13 @@ public class EmployerName
   {
     return this.name.equals(eName);
   }
-  
+
   @Override
   public boolean equals(Object o)
   {
     return (o instanceof EmployerName) && (this.equals((EmployerName) o));
   }
-  
+
   @Override
   public int hashCode()
   {

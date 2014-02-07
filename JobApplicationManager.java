@@ -1,9 +1,12 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class JobApplicationManager
 {
 
-  public static void acceptApplicationToJobWithResume(Jobseeker jobseeker,
-                                                      Job job,
-                                                      Resume resume) throws ResumeRequiredException
+  public static void acceptApplicationToJob(Jobseeker jobseeker,
+                                            Job job,
+                                            Resume resume) throws ResumeRequiredException
   {
     if ((Resume.invalid == resume) && (job instanceof JReqJob))
     {
@@ -22,6 +25,22 @@ public class JobApplicationManager
     }
 
     Globals.jobApplicationRepository.addJobApplication(JobApplication.from(jobseeker, job));
+  }
+
+  public static Jobs appliedJobs(Jobseeker jobseeker)
+  {
+
+    Jobs appliedToJobs = new Jobs();
+    List<JobApplication> applications = Globals.jobApplicationRepository.jobApplicationsByJobseeker(jobseeker);
+    for (JobApplication application : applications)
+    {
+      if (jobseeker.equals(application.getJobseeker()))
+      {
+        appliedToJobs.addJob(application.getJob());
+      }
+    }
+
+    return appliedToJobs;
   }
 
 }

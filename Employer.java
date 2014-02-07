@@ -1,4 +1,3 @@
-
 public class Employer
 {
   private EmployerID   id;
@@ -22,12 +21,11 @@ public class Employer
     Globals.postedJobRepository.addJob(this, JobFactory.jobFrom(type, name));
   }
 
-  
   public boolean equals(Employer employer)
   {
     return employer.equals(this.id) && employer.equals(this.name);
   }
-  
+
   public boolean equals(EmployerID employerID)
   {
     return this.id.equals(employerID);
@@ -55,13 +53,13 @@ public class Employer
     }
     return false;
   }
-  
+
   @Override
   public int hashCode()
   {
     return id.hashCode() ^ name.hashCode();
   }
-  
+
   @Override
   public String toString()
   {

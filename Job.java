@@ -16,23 +16,23 @@ public abstract class Job
   @Override
   public boolean equals(Object o)
   {
-    if( o instanceof Job )
+    if (o instanceof Job)
     {
       return this.equals((Job) o);
     }
-    if( o instanceof JobID )
+    if (o instanceof JobID)
     {
       return this.equals((JobID) o);
     }
     return false;
   }
-  
+
   @Override
   public int hashCode()
   {
     return (1033 * name.hashCode());
   }
-  
+
   public String toString()
   {
     return name.toString();

@@ -1,7 +1,7 @@
 public class JobseekerID
 {
-  public static JobseekerID invalid;
-  private IdentifyingType   id;
+  public static JobseekerID     invalid;
+  private final IdentifyingType id;
 
   public JobseekerID(IdentifyingType id)
   {

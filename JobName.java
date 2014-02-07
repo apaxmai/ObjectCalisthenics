@@ -1,10 +1,7 @@
 public class JobName
 {
-  public static final JobName invalid = new JobName();
-  private String              name;
-
-  public JobName()
-  {}
+  public static JobName invalid;
+  private final String  name;
 
   public JobName(String name)
   {

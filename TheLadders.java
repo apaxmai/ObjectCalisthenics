@@ -18,23 +18,24 @@ public class TheLadders
   {
     Report report = new Report();
     List<JobApplication> applications = Globals.jobApplicationRepository.jobApplicationsByDay(date);
-    
-    for( JobApplication application : applications )
+
+    for (JobApplication application : applications)
     {
-      Job job = application.getJob(); //until i figure out how to do this, just do it.
+      Job job = application.getJob(); // until i figure out how to do this, just do it. ( could be:
+                                      // Job job; application.putJob(job); )
       Jobseeker jobseeker = application.getJobseeker();
       Employer employer = Globals.postedJobRepository.getEmployerForJob(job);
-      report.addRow( employer.toString(), job.toString(), jobseeker.toString(), date.toString() );
+      report.addRow(employer.toString(), job.toString(), jobseeker.toString(), date.toString());
     }
-    
-    if( ReportFormatType.CSV == theReportFormatType )
+
+    if (ReportFormatType.CSV == theReportFormatType)
     {
       String decoratedReport = Globals.gCSVReportDecorator.decorate(report);
       System.out.println(decoratedReport);
       return;
     }
-    
-    if( ReportFormatType.HTML == theReportFormatType )
+
+    if (ReportFormatType.HTML == theReportFormatType)
     {
       String decoratedReport = Globals.gHTMLReportDecorator.decorate(report);
       System.out.println(decoratedReport);
@@ -42,31 +43,75 @@ public class TheLadders
     }
   }
 
-  public static void reportForAggregateJobApplications()
+  public static void reportForAggregateJobApplications(ReportFormatType theReportFormatType)
   {
-    // for (Employer e : Employers.getEmployersAsList())
-    // {
-    // reportForAggregateJobApplications(e);
-    // }
+    Report report = new Report();
+
+    // //
+
+    if (ReportFormatType.CSV == theReportFormatType)
+    {
+      String decoratedReport = Globals.gCSVReportDecorator.decorate(report);
+      System.out.println(decoratedReport);
+      return;
+    }
+
+    if (ReportFormatType.HTML == theReportFormatType)
+    {
+      String decoratedReport = Globals.gHTMLReportDecorator.decorate(report);
+      System.out.println(decoratedReport);
+      return;
+    }
   }
 
-  public static void reportForAggregateJobApplications(Employer theEmployer)
+  public static void reportForAggregateJobApplications(Employer theEmployer,
+                                                       ReportFormatType theReportFormatType)
   {
-    // todo
+    Report report = new Report();
+
+    // //
+
+    if (ReportFormatType.CSV == theReportFormatType)
+    {
+      String decoratedReport = Globals.gCSVReportDecorator.decorate(report);
+      System.out.println(decoratedReport);
+      return;
+    }
+
+    if (ReportFormatType.HTML == theReportFormatType)
+    {
+      String decoratedReport = Globals.gHTMLReportDecorator.decorate(report);
+      System.out.println(decoratedReport);
+      return;
+    }
+    return;
   }
 
-  public static void reportForAggregateJobApplicationsSuccessRate()
+  public static void reportForAggregateJobApplicationsSuccessRate(ReportFormatType theReportFormatType)
   {
-    // for (Employer e : Employers.getEmployersAsList())
-    // {
-    // reportForAggregateJobApplicationsSuccessRate(e);
-    // }
+    Report report = new Report();
+
+    // //
+
+    if (ReportFormatType.CSV == theReportFormatType)
+    {
+      String decoratedReport = Globals.gCSVReportDecorator.decorate(report);
+      System.out.println(decoratedReport);
+      return;
+    }
+
+    if (ReportFormatType.HTML == theReportFormatType)
+    {
+      String decoratedReport = Globals.gHTMLReportDecorator.decorate(report);
+      System.out.println(decoratedReport);
+      return;
+    }
   }
 
-  public static void reportForAggregateJobApplicationsSuccessRate(Employer theEmployer)
+  public static void reportForAggregateJobApplicationsSuccessRate(Employer theEmployer,
+                                                                  ReportFormatType theReportFormatType)
   {
     // daniel: failures for technical reasons
-    // ask
   }
 
 }

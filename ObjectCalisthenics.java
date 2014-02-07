@@ -77,12 +77,12 @@ public class ObjectCalisthenics
     }
 
     String today = new SimpleDateFormat("yyyyMMdd").format(Calendar.getInstance().getTime());
-    
+
     System.out.println("Testing TheLadders.reportForJobApplicationsByDay for Today and CSV:");
     TheLadders.reportForJobApplicationsByDay(today, ReportFormatType.CSV);
-    
+
     System.out.println("Testing TheLadders.reportForJobApplicationsByDay for Today and HTML:");
     TheLadders.reportForJobApplicationsByDay(today, ReportFormatType.HTML);
-    
+
   }
 }
