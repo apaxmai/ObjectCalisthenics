@@ -54,6 +54,9 @@ public class ObjectCalisthenics
 
     System.out.println("Jobseeker saving job Senior Geometer");
     euler.saveJob(masonrySeniorGeometerJob);
+    
+    System.out.print("The saved job was: ");
+    euler.getListingOfSavedJobs();
 
     try
     {
@@ -84,5 +87,7 @@ public class ObjectCalisthenics
     System.out.println("Testing TheLadders.reportForJobApplicationsByDay for Today and HTML:");
     TheLadders.reportForJobApplicationsByDay(today, ReportFormatType.HTML);
 
+    System.out.println("Testing TheLadders.reportForAggregateJobApplicationsSuccessRate for CSV:");
+    TheLadders.reportForAggregateJobApplicationsSuccessRate(ReportFormatType.CSV);
   }
 }

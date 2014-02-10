@@ -24,7 +24,11 @@ public class Jobseeker
 
   public void saveJob(Job theJob)
   {
-    // unimp //todo
+	  //is this OK to be exposed to Jobseeker, maybe we want a "saver" to do this for us
+    Globals.savedJobRepository.addSavedJob(
+    		Globals.postedJobRepository.getEmployerForJob(theJob),
+    		theJob,
+    		this);
   }
 
   public void createResume(String rName)
@@ -66,7 +70,10 @@ public class Jobseeker
   // //todo
   public void getListingOfSavedJobs()
   {
-
+    for( Pair<Employer, Job> tuple : Globals.savedJobRepository.getSavedJobsForJobseeker(this) )
+    {
+      System.out.println(tuple.getFirst().toString() +", "+ tuple.getSecond().toString() );
+    }
   }
 
   // (6) Jobseekers should be able to see a listing of the jobs for which they have applied. //todo

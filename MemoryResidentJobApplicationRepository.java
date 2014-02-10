@@ -3,11 +3,14 @@ import java.util.ArrayList;
 
 public class MemoryResidentJobApplicationRepository implements JobApplicationRepository
 {
+  //this might be a JobApplicationCollection instead of two lists
   private List<JobApplication> jobApplications;
+  private List<JobApplication> failedJobApplications;
 
   public MemoryResidentJobApplicationRepository()
   {
     jobApplications = new ArrayList<>();
+    failedJobApplications = new ArrayList<>();
   }
 
   @Override
@@ -60,6 +63,33 @@ public class MemoryResidentJobApplicationRepository implements JobApplicationRep
     {
       applications.add(application);
     }
+  }
+
+  @Override
+  public void addFailedJobApplication(JobApplication jobApplication) {
+	failedJobApplications.add(jobApplication);
+  }
+  
+  public List<JobApplication> failedJobApplicationsByJobseeker(Jobseeker jobseeker)
+  {
+    List<JobApplication> applications = new ArrayList<>();
+    for( JobApplication application : failedJobApplications )
+    {
+      addToListIfCreatedByJobseeker(applications, application, jobseeker);
+    }
+    return applications;
+  }
+
+  @Override
+  public List<JobApplication> succeededJobApplications()
+  {
+	return jobApplications;
+  }
+
+  @Override
+  public List<JobApplication> failedJobApplications()
+  {
+    return failedJobApplications;
   }
 
 }

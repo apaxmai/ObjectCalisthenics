@@ -20,14 +20,15 @@ public class MemoryResidentSavedJobRepository implements SavedJobRepository
 
   public List<Pair<Employer, Job>> getSavedJobsForJobseeker(Jobseeker jobseeker)
   {
-    // this is not main, if I had a SQL database ...
-
-    /*
-     * for (Pair<Employer, Job> p : jobs) { if (job.equals(p.getSecond())) { return p.getFirst(); }
-     * }
-     */
-
-    return null; // oh Employer.invalid where are you
+	List<Pair<Employer,Job>> mySavedJobs = new ArrayList<>();
+    for( Triplet<Employer, Job, Jobseeker> tuple : jobs )
+    {
+      if( jobseeker.equals(tuple.getThird()) )
+      {
+        mySavedJobs.add( new Pair<Employer, Job>(tuple.getFirst(), tuple.getSecond()) );
+      }
+    }
+    return mySavedJobs;
   }
 
 }

@@ -10,6 +10,7 @@ public class JobApplicationManager
   {
     if ((Resume.invalid == resume) && (job instanceof JReqJob))
     {
+      Globals.jobApplicationRepository.addFailedJobApplication(JobApplication.from(jobseeker, resume, job));
       throw new ResumeRequiredException();
     }
 
