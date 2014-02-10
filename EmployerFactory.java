@@ -12,7 +12,7 @@ public class EmployerFactory
   public static Employer employerFrom(EmployerName theEmployerName)
   {
     EmployerID id = new EmployerID(new IdentifyingType(jobIDCounter));
-    Employer retJob = new Employer(id, theEmployerName);
+    Employer retJob = Employer.employerFrom(id, theEmployerName);
 
     jobIDCounter++;
     return retJob;

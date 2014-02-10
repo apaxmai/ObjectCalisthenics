@@ -30,7 +30,7 @@ public abstract class Job
   @Override
   public int hashCode()
   {
-    return (1033 * name.hashCode());
+    return HashCodeProvider.hashCodeFor(this, name);
   }
 
   public String toString()

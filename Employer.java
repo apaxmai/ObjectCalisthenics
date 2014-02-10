@@ -3,7 +3,15 @@ public class Employer
   private EmployerID   id;
   private EmployerName name;
 
-  public Employer(EmployerID id,
+  public static Employer employerFrom(EmployerID id, EmployerName name)
+  {
+    //if( ! Globals.employerRepository.containsEmployerWithID(id) )
+    //{
+    return new Employer(id, name);
+    //}
+  }
+  
+  private Employer(EmployerID id,
                   EmployerName name)
   {
     this.id = id;
@@ -23,17 +31,12 @@ public class Employer
 
   public boolean equals(Employer employer)
   {
-    return employer.equals(this.id) && employer.equals(this.name);
+    return employer.equals(this.id);
   }
 
   public boolean equals(EmployerID employerID)
   {
     return this.id.equals(employerID);
-  }
-
-  public boolean equals(EmployerName employerName)
-  {
-    return this.name.equals(employerName);
   }
 
   @Override
@@ -46,10 +49,6 @@ public class Employer
     if (o instanceof EmployerID)
     {
       return (this.equals((EmployerID) o));
-    }
-    if (o instanceof EmployerName)
-    {
-      return (this.equals((EmployerName) o));
     }
     return false;
   }

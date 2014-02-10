@@ -16,15 +16,20 @@ public class IdentifyingType
   {
     return id.equals(this.data);
   }
-
+  
   public boolean equals(Integer data)
   {
     return (this.data == data);
   }
 
   @Override
+  public boolean equals(Object o)
+  {
+    return (o instanceof IdentifyingType) && (this.equals((IdentifyingType) o));
+  }
+  @Override
   public int hashCode()
   {
-    return (101 * data);
+    return HashCodeProvider.hashCodeFor(this, data);
   }
 };

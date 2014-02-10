@@ -27,10 +27,7 @@ public class JobID
   @Override
   public int hashCode()
   {
-    return (1013 * id.hashCode());
+    return HashCodeProvider.hashCodeFor(this, id);
   }
-
-  // because of .equals() and .hashCode(), it does not make sense to perform .equals() on mutable
-  // objects
 
 };
