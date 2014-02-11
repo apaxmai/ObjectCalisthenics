@@ -37,7 +37,7 @@ public class JobApplicationManager
     {
       if (jobseeker.equals(application.getJobseeker()))
       {
-        appliedToJobs.addJob(application.getJob());
+        appliedToJobs.add(application.getJob());
       }
     }
 

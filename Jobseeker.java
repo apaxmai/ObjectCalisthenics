@@ -2,9 +2,10 @@ import java.util.HashMap;
 
 public class Jobseeker
 {
-  // private JobseekerID id; // this will need to contain HumanName //todo
+  //private JobseekerIdentity identity; //contains JobseekerID and HumanName
+  private JobseekerID                 id; // this will need to contain HumanName //todo
   private HumanName                   name;
-  private HashMap<ResumeName, Resume> resumes;
+  private HashMap<ResumeName, Resume> resumes; //this is a type Resumes
 
   // saving jobs cannot be done yet due to restriction on number of members //todo
   // move saved jobs data to another class that remembers the map: JobseekerID -> List<JobID>
@@ -22,13 +23,10 @@ public class Jobseeker
     resumes = new HashMap<ResumeName, Resume>();
   }
 
-  public void saveJob(Job theJob)
+  public void saveJob(Job job)
   {
-	  //is this OK to be exposed to Jobseeker, maybe we want a "saver" to do this for us
-    Globals.savedJobRepository.addSavedJob(
-    		Globals.postedJobRepository.getEmployerForJob(theJob),
-    		theJob,
-    		this);
+	//is this OK to be exposed to Jobseeker, maybe we want a "saver" to do this for us
+    Globals.savedJobRepository.addSavedJob(job, this);
   }
 
   public void createResume(String rName)
@@ -55,24 +53,15 @@ public class Jobseeker
       theResumeToSubmit = resumes.get(rName);
     }
 
-    try
-    {
-      JobApplicationManager.acceptApplicationToJob(this, job, theResumeToSubmit);
-    }
-    catch (ResumeRequiredException ex)
-    {
-      throw ex;
-    }
-
+    JobApplicationManager.acceptApplicationToJob(this, job, theResumeToSubmit);
   }
 
   // (5) Jobseekers should be able to see a listing of jobs they have saved for later viewing.
-  // //todo
   public void getListingOfSavedJobs()
   {
-    for( Pair<Employer, Job> tuple : Globals.savedJobRepository.getSavedJobsForJobseeker(this) )
+    for( Job job : Globals.savedJobRepository.getSavedJobsForJobseeker(this) )
     {
-      System.out.println(tuple.getFirst().toString() +", "+ tuple.getSecond().toString() );
+      //jobseeker doSomething() with this information (outside the scope of project)
     }
   }
 
@@ -80,7 +69,10 @@ public class Jobseeker
   public void getListingOfAppliedJobs()
   {
     Jobs appliedJobs = JobApplicationManager.appliedJobs(this);
-    // display //todo
+    for( Job job : appliedJobs )
+    {
+      //jobseeker doessomething() with the listing. (outside the scope of project)
+    }
   }
 
   @Override

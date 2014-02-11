@@ -1,36 +1,40 @@
 
 public class HashCodeProvider
 {
-  //this would be another "premature optimization", but maybe for production
+  //this would be another "premature optimization", just ignore this it can be `return 0;`
   public static int hashCodeFor(Object object, Object ... fields)
   {
     int ret = 0;
+    int temp = 0;
     
-    //foreach object
-    //foreach k
-    /*
-    if( k <= 32 )
+    int []array = new int[] {38, 113, 41, 68, 35, 74, 111};
+    
+    for( Object field : fields )
     {
-      ret += << k;
+      temp = field.hashCode();
+      for( int i = 0; i < 7; i++ )
+      {
+    	int k = array[i];
+        if( k <= 32 )
+        {
+          temp += ret << k;
+        }
+        if( k > 32 && k <= 64 )
+        {
+          temp -= temp << (k-32);
+        }
+        if( k > 64 && k <= 96 )
+        {
+          ret ^= temp << (k-64);
+        }
+        if( k > 96 )
+        {
+          ret ^= temp >> (k-96);
+        }
+      }
+      ret = ret ^ temp;
     }
     
-    if( k > 32 && k <= 64 )
-    {
-      ret -= << (k-32);
-    }
-    
-    if( k > 64 && k <= 96 )
-    {
-      ret ^= << (k-64);
-    }
-    
-    if( k > 96 )
-    {
-      ret ^= >> (k-96);
-    }
-    
-    
-    */
     return ret;
   }
   
@@ -39,7 +43,6 @@ public class HashCodeProvider
 }
 
 /*
-38 113  41  68  35  74 111
 38 113  42  69  35  73 112
 38 114   9 100  35 107  46
 38 114  11  66   8  68 112

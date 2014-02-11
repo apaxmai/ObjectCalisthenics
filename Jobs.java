@@ -1,9 +1,9 @@
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
-class Jobs
+class Jobs implements java.lang.Iterable<Job>
 {
-
   private List<Job> jobs;
 
   public Jobs()
@@ -16,9 +16,27 @@ class Jobs
     this.jobs = jobs;
   }
 
-  public void addJob(Job job)
+  public void add(Job job)
   {
     jobs.add(job);
+  }
+
+  @Override
+  public Iterator<Job> iterator()
+  {
+    return jobs.iterator();
+  }
+
+  public boolean containsJobWithID(JobID id)
+  {
+	for( Job job : jobs )
+	{
+	  if(job.hasID(id))
+	  {
+	    return true;
+	  }
+	}
+	return false;
   }
 
 };

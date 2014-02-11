@@ -1,14 +1,19 @@
+
 public class Employer
 {
   private EmployerID   id;
   private EmployerName name;
 
-  public static Employer employerFrom(EmployerID id, EmployerName name)
+  public static Employer employerFrom(EmployerID id, EmployerName name) throws AlreadyExistsException
   {
-    //if( ! Globals.employerRepository.containsEmployerWithID(id) )
-    //{
-    return new Employer(id, name);
-    //}
+    if( ! Globals.createdEmployerRepository.containsEmployerWithID(id) )
+    {
+      Employer ret = new Employer(id, name);
+      Globals.createdEmployerRepository.add(ret);
+      return ret;
+    }
+    
+    throw new AlreadyExistsException();
   }
   
   private Employer(EmployerID id,
@@ -18,45 +23,27 @@ public class Employer
     this.name = name;
   }
 
-  public void postJob(Job theJob)
+  public void createAndPostJob(JobType jobType, JobName jobName) throws AlreadyExistsException
   {
-    Globals.postedJobRepository.addJob(this, theJob);
+	Job job = JobFactory.jobFrom(this, jobType, jobName );
+    this.postJob(job);
   }
-
-  public void postJob(JobType type,
-                      JobName name)
+  public void postJob(Job job)
   {
-    Globals.postedJobRepository.addJob(this, JobFactory.jobFrom(type, name));
-  }
-
-  public boolean equals(Employer employer)
-  {
-    return employer.equals(this.id);
-  }
-
-  public boolean equals(EmployerID employerID)
-  {
-    return this.id.equals(employerID);
+    Globals.postedJobRepository.add(job);
   }
 
   @Override
   public boolean equals(Object o)
   {
-    if (o instanceof Employer)
-    {
-      return (this.equals((Employer) o));
-    }
-    if (o instanceof EmployerID)
-    {
-      return (this.equals((EmployerID) o));
-    }
-    return false;
+    return (o instanceof Employer) && (this.id.equals(((Employer)o).id));
   }
 
   @Override
   public int hashCode()
   {
-    return id.hashCode() ^ name.hashCode();
+	//useful methods in java 7 HashCodeBuilder ?
+    return HashCodeProvider.hashCodeFor(this, id.hashCode());
   }
 
   @Override
@@ -64,5 +51,7 @@ public class Employer
   {
     return name.toString();
   }
+
+
 
 }

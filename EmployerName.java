@@ -20,13 +20,13 @@ public class EmployerName
   @Override
   public boolean equals(Object o)
   {
-    return (o instanceof EmployerName) && (this.equals((EmployerName) o));
+    return (o instanceof EmployerName) && (((EmployerName)o).name.equals(this.name));
   }
 
   @Override
   public int hashCode()
   {
-    return (1031 * name.hashCode());
+    return HashCodeProvider.hashCodeFor(this, name.hashCode());
   }
 
   @Override
@@ -35,4 +35,4 @@ public class EmployerName
     return name;
   }
 
-};
+}

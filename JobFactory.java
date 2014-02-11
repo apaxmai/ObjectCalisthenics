@@ -3,19 +3,24 @@ public class JobFactory
 
   private static Integer jobIDCounter = 0;
 
-  public static Job jobFrom(JobType theJobType,
-                            JobName theJobName)
+  public static Job jobFrom(Employer creator,
+		                    JobType jobType,
+                            JobName jobName) throws AlreadyExistsException
   {
-    JobID id = new JobID(new IdentifyingType(jobIDCounter));
-    Job retJob = new ATSJob(id, theJobName);
+    JobID id = new JobID(new IdentifyingType(jobIDCounter), jobName);
 
-    if (JobType.JREQ == theJobType)
+    Job job = null;
+    if( JobType.ATS == jobType )
     {
-      retJob = new JReqJob(id, theJobName);
+      job = ATSJob.jobFrom(creator, id);
+    }
+    if (JobType.JREQ == jobType)
+    {
+      job = JReqJob.jobFrom(creator, id);
     }
 
     jobIDCounter++;
-    return retJob;
+    return job;
   }
 
 }

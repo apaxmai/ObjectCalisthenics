@@ -3,32 +3,23 @@ import java.util.ArrayList;
 
 public class MemoryResidentJobRepository implements JobRepository
 {
-
-  private List<Pair<Employer, Job>> jobs;
-
+  private Jobs jobs;
+	
   public MemoryResidentJobRepository()
   {
-    jobs = new ArrayList<>();
+    jobs = new Jobs();
   }
 
-  public void addJob(Employer employer,
-                     Job job)
+  @Override
+  public void add(Job job)
   {
-    jobs.add(new Pair<Employer, Job>(employer, job));
+    jobs.add(job);
   }
 
-  public Employer getEmployerForJob(Job job)
+  @Override
+  public boolean containsJobWithID(JobID id)
   {
-    // this is not main, if I had a SQL database ...
-    for (Pair<Employer, Job> p : jobs)
-    {
-      if (job.equals(p.getSecond()))
-      {
-        return p.getFirst();
-      }
-    }
-
-    return null; // oh Employer.invalid where are you
+	return jobs.containsJobWithID(id);
   }
 
 }

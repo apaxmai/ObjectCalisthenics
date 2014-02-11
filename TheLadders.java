@@ -25,7 +25,7 @@ public class TheLadders
       Job job = application.getJob(); // until i figure out how to do this, just do it. ( could be:
                                       // Job job; application.putJob(job); )
       Jobseeker jobseeker = application.getJobseeker();
-      Employer employer = Globals.postedJobRepository.getEmployerForJob(job);
+      Employer employer = job.creator();
       report.addRow(employer.toString(), job.toString(), jobseeker.toString(), date.toString());
     }
 
@@ -107,7 +107,7 @@ public class TheLadders
     {
       Job job = application.getJob(); // until i figure out how to do this, just do it. ( could be:
                                       // Job job; application.putJob(&job); )
-      Employer employer = Globals.postedJobRepository.getEmployerForJob(job);
+      Employer employer = job.creator(); //Globals.postedJobRepository.getEmployerForJob(job);
       
       //if it does not contain [Employer, Job], add it
       boolean found = false;

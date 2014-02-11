@@ -1,19 +1,21 @@
 public class ATSJob extends Job
 {
-  public ATSJob(String name)
+  public static ATSJob jobFrom(Employer creator, JobID id) throws AlreadyExistsException
   {
-    this.name = new JobName(name);
+    if( ! Globals.createdJobRepository.containsJobWithID(id) )
+    {
+      ATSJob job = new ATSJob(creator, id);
+      Globals.createdJobRepository.add(job);
+      return job;
+    }
+	    
+    throw new AlreadyExistsException();
   }
-
-  public ATSJob(JobName name)
-  {
-    this.name = name;
-  }
-
-  public ATSJob(JobID id,
-                JobName name)
+	  
+  private ATSJob(Employer creator,
+		        JobID id)
   {
     this.id = id;
-    this.name = name;
+    this.creator = creator;
   }
 };

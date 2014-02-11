@@ -8,25 +8,15 @@ public class EmployerID
     this.id = new IdentifyingType(id);
   }
 
-  public boolean equals(EmployerID id)
-  {
-    return id.equals(this.id);
-  }
-
-  private boolean equals(IdentifyingType id)
-  {
-    return id.equals(this.id);
-  }
-
   @Override
   public boolean equals(Object o)
   {
-    return (o instanceof EmployerID) && (this.equals((EmployerID) o));
+    return (o instanceof EmployerID) && ( ((EmployerID)o).id.equals( this.id ) );
   }
 
   @Override
   public int hashCode()
   {
-    return (1019 * id.hashCode());
+    return HashCodeProvider.hashCodeFor(this, id.hashCode());
   }
-};
+}

@@ -1,18 +1,18 @@
 public class JobApplications
 {
-
+	//this is mostly delete
   // private static ArrayList<JobApplication> myJobApplications = new ArrayList<>();
-  private static JobApplicationContainer myJobApplications = new JobApplicationContainer();
+//  private static JobApplicationContainer myJobApplications = new JobApplicationContainer();
 
-  public static void add(JobApplication theJobApplication)
-  {
-    myJobApplications.add(theJobApplication);
-  }
+//  public static void add(JobApplication theJobApplication)
+//  {
+//    myJobApplications.add(theJobApplication);
+//  }
 
-  public JobApplications()
-  {
-    myJobApplications = new JobApplicationContainer();
-  }
+//  public JobApplications()
+//  {
+//    myJobApplications = new JobApplicationContainer();
+//  }
 
   // function to view all applications accessible by TheLadders
   /*

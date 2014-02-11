@@ -12,24 +12,14 @@ public class IdentifyingType
     this.data = other.data;
   }
 
-  public boolean equals(IdentifyingType id)
-  {
-    return id.equals(this.data);
-  }
-  
-  public boolean equals(Integer data)
-  {
-    return (this.data == data);
-  }
-
   @Override
   public boolean equals(Object o)
   {
-    return (o instanceof IdentifyingType) && (this.equals((IdentifyingType) o));
+    return (o instanceof IdentifyingType) && ( ((IdentifyingType) o).data.equals(this.data) );
   }
   @Override
   public int hashCode()
   {
     return HashCodeProvider.hashCodeFor(this, data);
   }
-};
+}

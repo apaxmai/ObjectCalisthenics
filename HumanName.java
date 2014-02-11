@@ -22,4 +22,4 @@ public class HumanName
     return (this.givenName + " " + this.familyName);
   }
 
-};
+}

@@ -1,15 +1,10 @@
 public class EmployerFactory
 {
 
-  private static final EmployerFactory INSTANCE     = new EmployerFactory();
+  //daniel suggests to place global employer into the factory?
   private static Integer               jobIDCounter = 0;
 
-  public static EmployerFactory getInstance()
-  {
-    return INSTANCE;
-  }
-
-  public static Employer employerFrom(EmployerName theEmployerName)
+  public static Employer employerFrom(EmployerName theEmployerName) throws AlreadyExistsException
   {
     EmployerID id = new EmployerID(new IdentifyingType(jobIDCounter));
     Employer retJob = Employer.employerFrom(id, theEmployerName);
@@ -18,6 +13,7 @@ public class EmployerFactory
     return retJob;
   }
 
-  protected EmployerFactory()
-  {}
+  private EmployerFactory()
+  {
+  }
 }

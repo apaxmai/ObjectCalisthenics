@@ -3,19 +3,19 @@ import java.util.Calendar;
 
 public class ObjectCalisthenics
 {
-  public final static void main(String[] args)
+  public final static void main(String[] args) throws AlreadyExistsException
   {
 
     Employer theMasonry = EmployerFactory.employerFrom(new EmployerName("Perfect Cuboid Masonry"));
     Employer numbersRUs = EmployerFactory.employerFrom(new EmployerName("Numbers-R-Us"));
 
-    Job masonryCEOJob = JobFactory.jobFrom(JobType.ATS, new JobName("CEO"));
-    Job masonryGroundskeeperJob1 = JobFactory.jobFrom(JobType.ATS, new JobName("Groundskeeper"));
-    Job masonryGroundskeeperJob2 = JobFactory.jobFrom(JobType.ATS, new JobName("Groundskeeper"));
-    Job masonryGroundskeeperJob3 = JobFactory.jobFrom(JobType.ATS, new JobName("Groundskeeper"));
-    Job masonrySeniorGeometerJob = JobFactory.jobFrom(JobType.JREQ, new JobName("Senior Geometer"));
+    Job masonryCEOJob = JobFactory.jobFrom(theMasonry, JobType.ATS, new JobName("CEO"));
+    Job masonryGroundskeeperJob1 = JobFactory.jobFrom(theMasonry, JobType.ATS, new JobName("Groundskeeper"));
+    Job masonryGroundskeeperJob2 = JobFactory.jobFrom(theMasonry, JobType.ATS, new JobName("Groundskeeper"));
+    Job masonryGroundskeeperJob3 = JobFactory.jobFrom(theMasonry, JobType.ATS, new JobName("Groundskeeper"));
+    Job masonrySeniorGeometerJob = JobFactory.jobFrom(theMasonry, JobType.JREQ, new JobName("Senior Geometer"));
 
-    Job numberStoreJob = JobFactory.jobFrom(JobType.ATS, new JobName("Head of 64-bit Unsigned Integer Sales"));
+    Job numberStoreJob = JobFactory.jobFrom(numbersRUs, JobType.ATS, new JobName("Head of 64-bit Unsigned Integer Sales"));
 
     theMasonry.postJob(masonryCEOJob);
     theMasonry.postJob(masonryGroundskeeperJob1);
