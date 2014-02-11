@@ -3,7 +3,7 @@ import java.util.Calendar;
 
 public class ObjectCalisthenics
 {
-  public final static void main(String[] args) throws AlreadyExistsException
+  public final static void main(String[] args) throws AlreadyExistsException, NoSuchResumeException
   {
 
     Employer theMasonry = EmployerFactory.employerFrom(new EmployerName("Perfect Cuboid Masonry"));
@@ -25,9 +25,9 @@ public class ObjectCalisthenics
 
     numbersRUs.postJob(numberStoreJob);
 
-    Jobseeker sophie = new Jobseeker("Sophie", "Germain");
-    Jobseeker euler = new Jobseeker("Leonhard", "Euler");
-    Jobseeker me = new Jobseeker("Charles", "Morris");
+    Jobseeker sophie = JobseekerFactory.jobseekerFrom( new HumanName("Sophie", "Germain") );
+    Jobseeker euler = JobseekerFactory.jobseekerFrom( new HumanName("Leonhard", "Euler") );
+    Jobseeker me = JobseekerFactory.jobseekerFrom( new HumanName("Charles", "Morris") );
 
     try
     {

@@ -11,4 +11,16 @@ public class ResumeName
     this.name = name;
   }
 
+  @Override
+  public boolean equals(Object o)
+  {
+    return (o instanceof ResumeName) && (this.name.equals(((ResumeName)o).name));
+  }
+
+  @Override
+  public int hashCode()
+  {
+    return HashCodeProvider.hashCodeFor(this, name.hashCode());
+  }
+  
 };

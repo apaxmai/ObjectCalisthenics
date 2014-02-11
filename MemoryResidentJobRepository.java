@@ -22,4 +22,20 @@ public class MemoryResidentJobRepository implements JobRepository
 	return jobs.containsJobWithID(id);
   }
 
+  @Override
+  public Jobs jobsByEmployer(Employer employer)
+  {
+	Jobs retJobs = new Jobs();
+	
+	for( Job job : jobs )
+	{
+	  if( employer.equals(job.creator()) )
+	  {
+	    retJobs.add(job);
+	  }
+	}
+	
+	return retJobs;
+  }
+
 }

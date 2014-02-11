@@ -16,4 +16,9 @@ public class Resume
   {
     this.name = name;
   }
+
+  public boolean hasName(ResumeName name) 
+  {
+    return this.name.equals(name);
+  }
 };

@@ -21,7 +21,7 @@ public class MemoryResidentJobApplicationRepository implements JobApplicationRep
 
   // todo: public JobApplications ...
   @Override
-  public List<JobApplication> jobApplicationsByDay(String date)
+  public List<JobApplication> succeededJobApplicationsByDay(String date)
   {
 
     List<JobApplication> applications = new ArrayList<>();
@@ -44,7 +44,7 @@ public class MemoryResidentJobApplicationRepository implements JobApplicationRep
   }
 
   @Override
-  public List<JobApplication> jobApplicationsByJobseeker(Jobseeker jobseeker)
+  public List<JobApplication> succeededJobApplicationsByJobseeker(Jobseeker jobseeker)
   {
     List<JobApplication> applications = new ArrayList<>();
     for (JobApplication application : jobApplications)
@@ -60,6 +60,14 @@ public class MemoryResidentJobApplicationRepository implements JobApplicationRep
                                              Jobseeker jobseeker)
   {
     if (jobseeker.equals(application.getJobseeker()))
+    {
+      applications.add(application);
+    }
+  }
+  private void addToListIfApplicationIsForJob(List<JobApplication> applications,
+			JobApplication application, Job job)
+  {
+    if( job.equals( application.getJob() ))
     {
       applications.add(application);
     }
@@ -91,5 +99,19 @@ public class MemoryResidentJobApplicationRepository implements JobApplicationRep
   {
     return failedJobApplications;
   }
+
+  @Override
+  public List<JobApplication> succeededJobApplicationsByJob(Job job)
+  {
+    List<JobApplication> applications = new ArrayList<>();
+    for (JobApplication application : jobApplications)
+    {
+      addToListIfApplicationIsForJob(applications, application, job);
+    }
+
+    return applications;
+  }
+
+
 
 }

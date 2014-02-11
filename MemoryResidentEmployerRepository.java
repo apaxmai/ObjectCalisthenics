@@ -17,7 +17,7 @@ public class MemoryResidentEmployerRepository implements EmployerRepository
   {
 	for( Employer employer : employers )
 	{
-	  if( employer.equals(employerID) )
+	  if( employer.hasID(employerID) )
 	  {
         return true;
 	  }

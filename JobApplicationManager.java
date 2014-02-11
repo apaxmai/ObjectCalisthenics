@@ -32,7 +32,7 @@ public class JobApplicationManager
   {
 
     Jobs appliedToJobs = new Jobs();
-    List<JobApplication> applications = Globals.jobApplicationRepository.jobApplicationsByJobseeker(jobseeker);
+    List<JobApplication> applications = Globals.jobApplicationRepository.succeededJobApplicationsByJobseeker(jobseeker);
     for (JobApplication application : applications)
     {
       if (jobseeker.equals(application.getJobseeker()))

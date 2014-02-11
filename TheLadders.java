@@ -18,7 +18,7 @@ public class TheLadders
                                                    ReportFormatType theReportFormatType)
   {
     Report report = new Report();
-    List<JobApplication> applications = Globals.jobApplicationRepository.jobApplicationsByDay(date);
+    List<JobApplication> applications = Globals.jobApplicationRepository.succeededJobApplicationsByDay(date);
 
     for (JobApplication application : applications)
     {

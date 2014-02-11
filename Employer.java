@@ -52,6 +52,21 @@ public class Employer
     return name.toString();
   }
 
+  public boolean hasID(EmployerID employerID)
+  {
+    return this.id.equals(employerID);
+  }
+
+  //(2) Employers should be able to see a listing of the jobs they have posted.
+  public void listPostedJobs()
+  {
+	for( Job job : Globals.postedJobRepository.jobsByEmployer(this) )
+	{
+	  //do something... (outside scope) ?
+	  System.out.println(job);
+	}
+  }
+
 
 
 }

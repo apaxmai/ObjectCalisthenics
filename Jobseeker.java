@@ -3,29 +3,28 @@ import java.util.HashMap;
 public class Jobseeker
 {
   //private JobseekerIdentity identity; //contains JobseekerID and HumanName
-  private JobseekerID                 id; // this will need to contain HumanName //todo
-  private HumanName                   name;
-  private HashMap<ResumeName, Resume> resumes; //this is a type Resumes
+  private JobseekerID                 id;
+  private Resumes                     resumes;
+  //private HashMap<ResumeName, Resume> resumes; //this is a type Resumes
 
-  // saving jobs cannot be done yet due to restriction on number of members //todo
-  // move saved jobs data to another class that remembers the map: JobseekerID -> List<JobID>
-
-  public Jobseeker(String givenName)
+  public static Jobseeker jobseekerFrom(JobseekerID id) throws AlreadyExistsException
   {
-    name = new HumanName(givenName);
-    resumes = new HashMap<ResumeName, Resume>();
+    if( ! Globals.createdJobseekerRepository.containsJobseekerWithID(id) )
+    {
+      Jobseeker ret = new Jobseeker(id);
+      Globals.createdJobseekerRepository.add(ret);
+      return ret;
+    }
+    throw new AlreadyExistsException();
   }
-
-  public Jobseeker(String givenName,
-                   String familyName)
+  private Jobseeker(JobseekerID id)
   {
-    name = new HumanName(givenName, familyName);
-    resumes = new HashMap<ResumeName, Resume>();
+    this.id = id;
+    resumes = new Resumes(); //HashMap<ResumeName, Resume>();
   }
 
   public void saveJob(Job job)
   {
-	//is this OK to be exposed to Jobseeker, maybe we want a "saver" to do this for us
     Globals.savedJobRepository.addSavedJob(job, this);
   }
 
@@ -36,7 +35,7 @@ public class Jobseeker
 
   public void createResume(ResumeName rName)
   {
-    resumes.put(rName, new Resume(rName));
+    resumes.add(new Resume(rName));
   }
 
   public void applyToJob(Job job) throws ResumeRequiredException
@@ -45,12 +44,16 @@ public class Jobseeker
   }
 
   public void applyToJobWithResume(Job job,
-                                   ResumeName rName) throws ResumeRequiredException
+                                   ResumeName rName) throws ResumeRequiredException, NoSuchResumeException
   {
     Resume theResumeToSubmit = Resume.invalid;
     if (ResumeName.invalid != rName)
     {
-      theResumeToSubmit = resumes.get(rName);
+      theResumeToSubmit = resumes.resumeWithName(rName);
+      if( theResumeToSubmit == Resume.invalid )
+      {
+        throw new NoSuchResumeException();
+      }
     }
 
     JobApplicationManager.acceptApplicationToJob(this, job, theResumeToSubmit);
@@ -71,14 +74,19 @@ public class Jobseeker
     Jobs appliedJobs = JobApplicationManager.appliedJobs(this);
     for( Job job : appliedJobs )
     {
-      //jobseeker doessomething() with the listing. (outside the scope of project)
+      //jobseeker doSomethingElse() with the listing. (outside the scope of project)
     }
   }
 
   @Override
   public String toString()
   {
-    return name.toString();
+    return id.toString();
+  }
+  
+  public boolean hasID(JobseekerID id)
+  {
+	return this.id.equals(id);
   }
 
 }
