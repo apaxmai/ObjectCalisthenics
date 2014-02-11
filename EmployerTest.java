@@ -108,16 +108,60 @@ public class EmployerTest {
       sophie.applyToJob(job);
 		  
       String today = new SimpleDateFormat("yyyyMMdd").format(Calendar.getInstance().getTime());
-      Globals.jobApplicationRepository.succeededJobApplicationsByDay(today);
-      fail("test output");
+      List<JobApplication> applications = Globals.jobApplicationRepository.succeededJobApplicationsByDay(today);
+      
+	  boolean found = false;
+	  for( JobApplication application : applications )
+	  {
+		if( sophie.equals( application.getJobseeker() ) )
+		{
+  		  found = true;
+		}
+	  }
+	  
+	  if( found == false )
+	  {
+        fail("cannot find application by day");
+	  }
 	}
 	
 	// 7.3 (boolean AND)
 	@Test
-	public void testEmployerCanSeeApplicantsByJobAndDay()
+	public void testEmployerCanSeeApplicantsByJobAndDay() throws AlreadyExistsException, ResumeRequiredException
 	{
-	  fail("unimp");
+      Employer employer = EmployerFactory.employerFrom(new EmployerName("Perfect Cuboid Masonry"));
+      Job job = JobFactory.jobFrom(employer, JobType.ATS, new JobName("test testEmployerCanSeePostedJobs"));
+      employer.postJob(job);
+			  
+      Jobseeker sophie = JobseekerFactory.jobseekerFrom(new HumanName("Sophie", "Germain"));
+      sophie.applyToJob(job);
+			  
+      String today = new SimpleDateFormat("yyyyMMdd").format(Calendar.getInstance().getTime());
+      List<JobApplication> applications = Globals.jobApplicationRepository.succeededJobApplicationsByJobAndDay(job, today);
+	      
+	  boolean found = false;
+	  for( JobApplication application : applications )
+	  {
+	    if( sophie.equals( application.getJobseeker() ) )
+		{
+	      found = true;
+		}
+	  }
+		  
+	  if( found == false )
+	  {
+        fail("cannot find application by job AND day");
+	  }
 	}
 	
+	// 18. TheLadders wants the system to be able to handle more than one employer with the same name.
+	@Test
+	public void testMultipleEmployersSameName() throws AlreadyExistsException
+	{
+      Employer realMasonry = EmployerFactory.employerFrom(new EmployerName("Perfect Cuboid Masonry"));
+      Employer fakeMasonry = EmployerFactory.employerFrom(new EmployerName("Perfect Cuboid Masonry"));
+      
+      assertNotEquals(realMasonry, fakeMasonry);
+	}
 	
 }

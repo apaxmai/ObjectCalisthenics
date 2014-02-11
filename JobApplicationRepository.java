@@ -7,6 +7,7 @@ public interface JobApplicationRepository
   
   public List<JobApplication> succeededJobApplicationsByDay(String date);
   public List<JobApplication> succeededJobApplicationsByJob(Job job);
+  public List<JobApplication> succeededJobApplicationsByJobAndDay(Job job, String date);
   public List<JobApplication> succeededJobApplicationsByJobseeker(Jobseeker jobseeker);
   
   public List<JobApplication> succeededJobApplications();

@@ -112,6 +112,20 @@ public class MemoryResidentJobApplicationRepository implements JobApplicationRep
     return applications;
   }
 
+  @Override
+  public List<JobApplication> succeededJobApplicationsByJobAndDay(Job job, String date)
+  {
+	List<JobApplication> applications = new ArrayList<>();
+    for (JobApplication application : jobApplications)
+    {
+      if (application.appliedOnDate(date))
+      {
+    	addToListIfApplicationIsForJob(applications, application, job);
+      }
+    }
+	return applications;
+  }
+
 
 
 }
