@@ -1,6 +1,15 @@
 import static org.junit.Assert.*;
+import job.Job;
+import job.JobFactory;
+import job.JobName;
+import job.JobType;
 
 import org.junit.Test;
+
+import employer.AlreadyExistsException;
+import employer.Employer;
+import employer.EmployerFactory;
+import employer.EmployerName;
 
 
 public class JobTest

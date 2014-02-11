@@ -1,7 +1,22 @@
 
 import static org.junit.Assert.*;
+import job.Job;
+import job.JobFactory;
+import job.JobName;
+import job.JobType;
+import jobseeker.HumanName;
+import jobseeker.Jobseeker;
+import jobseeker.JobseekerFactory;
+import jobseeker.NoSuchResumeException;
+import jobseeker.ResumeName;
+import jobseeker.ResumeRequiredException;
 
 import org.junit.Test;
+
+import employer.AlreadyExistsException;
+import employer.Employer;
+import employer.EmployerFactory;
+import employer.EmployerName;
 
 public class JobApplicationManagerTest
 {

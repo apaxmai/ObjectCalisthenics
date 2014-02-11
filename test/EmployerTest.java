@@ -1,3 +1,5 @@
+
+
 import static org.junit.Assert.*;
 
 import java.io.ByteArrayOutputStream;
@@ -7,10 +9,29 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
+import job.Job;
+import job.JobFactory;
+import job.JobName;
+import job.JobType;
+import jobapplication.JobApplication;
+import jobseeker.HumanName;
+import jobseeker.Jobseeker;
+import jobseeker.JobseekerFactory;
+import jobseeker.ResumeRequiredException;
+
 import org.junit.Test;
 
+import datastructures.IdentifyingType;
+import employer.AlreadyExistsException;
+import employer.Employer;
+import employer.EmployerFactory;
+import employer.EmployerID;
+import employer.EmployerName;
+import globals.Globals;
 
-public class EmployerTest {
+
+public class EmployerTest
+{
 
 	@Test(expected = AlreadyExistsException.class)
 	public void testDuplicateEmployerThrowsException() throws AlreadyExistsException
