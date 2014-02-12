@@ -3,7 +3,9 @@ package TheLadders;
 import java.io.OutputStream;
 import java.io.StringWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import job.AppliedJob;
 import job.Job;
@@ -61,36 +63,65 @@ public class TheLadders
     }
   }
 
-
-  public static void reportForAggregateJobApplications(ReportFormatType theReportFormatType)
-  {
-    Report report = new Report();
-
-    // //
-
-    if (ReportFormatType.CSV == theReportFormatType)
-    {
-      String decoratedReport = myCSVReportDecorator.decorate(report);
-      System.out.println(decoratedReport);
-      return;
-    }
-
-    if (ReportFormatType.HTML == theReportFormatType)
-    {
-      String decoratedReport = myHTMLReportDecorator.decorate(report);
-      System.out.println(decoratedReport);
-      return;
-    }
-  }
-
-
   // (11) TheLadders should be able to see aggregate job application numbers by job and employer.
-  public static void reportForAggregateJobApplications(Employer theEmployer,
+  public static void reportForAggregateJobApplications(JobApplications jobApplications,
                                                        ReportFormatType theReportFormatType)
   {
     Report report = new Report();
 
-    // //
+    //these loops need extracting
+    StringWriter sw;
+    Map<String, Map<String, Integer>> uniqueEmployers = new HashMap<String, Map<String, Integer>>();
+    for( JobApplication jobApplication : jobApplications )
+    {
+      sw = new StringWriter();
+      jobApplication.putEmployerRepresentation(sw);
+      String employerRepresentation = sw.toString();
+      
+      sw = new StringWriter();
+      jobApplication.putJobRepresentation(sw);
+      String jobRepresentation = sw.toString();
+      
+      Map<String, Integer> jobApplicationCountMap;
+      if( uniqueEmployers.containsKey(employerRepresentation) )
+      {
+        jobApplicationCountMap = uniqueEmployers.get(employerRepresentation);
+        if( jobApplicationCountMap.containsKey(jobRepresentation) )
+        {
+          Integer currentCount = jobApplicationCountMap.get(jobRepresentation);
+          currentCount++;
+          
+          jobApplicationCountMap.put(jobRepresentation, currentCount);
+          uniqueEmployers.put(employerRepresentation, jobApplicationCountMap);
+        }
+        
+        if( ! jobApplicationCountMap.containsKey(jobRepresentation) )
+        {
+          jobApplicationCountMap = new HashMap<String, Integer>();
+          jobApplicationCountMap.put(jobRepresentation, 1);
+          uniqueEmployers.put(employerRepresentation, jobApplicationCountMap);
+        }
+      }
+      if( ! uniqueEmployers.containsKey(employerRepresentation) )
+      {
+        jobApplicationCountMap = new HashMap<String, Integer>();
+        jobApplicationCountMap.put(jobRepresentation, 1);
+        uniqueEmployers.put(employerRepresentation, jobApplicationCountMap);
+      }
+    }
+
+    for (Map.Entry entry : uniqueEmployers.entrySet())
+    {
+      String employerRepresentation = (String) entry.getKey();
+      Object innerHashMap = entry.getValue();
+      
+      for (Map.Entry innerEntry : ((Map<String, Map<String, Integer>>) innerHashMap).entrySet())
+      {
+        String jobRepresentation = (String) innerEntry.getKey();
+        Integer applicationCount = (Integer) innerEntry.getValue();
+        report.addRow(employerRepresentation, jobRepresentation, applicationCount);
+      }
+    }
 
     if (ReportFormatType.CSV == theReportFormatType)
     {
@@ -105,9 +136,7 @@ public class TheLadders
       System.out.println(decoratedReport);
       return;
     }
-    return;
   }
-
 
   // (12) TheLadders should be able to see how many job applications failed and how many succeeded
   // aggregated by job and employer.

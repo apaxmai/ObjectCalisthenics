@@ -51,6 +51,7 @@ public class ObjectCalisthenics
     try
     {
       jobApplications.add( sophie.applyToJob(numberStoreJob) );
+      jobApplications.add( euler.applyToJob(numberStoreJob) );
     }
     catch (ResumeRequiredException e)
     {
@@ -109,6 +110,12 @@ public class ObjectCalisthenics
     System.out.println("Testing TheLadders.reportForJobApplicationsByDay for Today and HTML:");
     TheLadders.reportForJobApplicationsByDay(jobApplications, today, ReportFormatType.HTML);
 
+    System.out.println("Testing TheLadders.reportForAggregateJobApplications for CSV:");
+    TheLadders.reportForAggregateJobApplications(jobApplications, ReportFormatType.CSV);
+    
+    System.out.println("Testing TheLadders.reportForAggregateJobApplications for HTML:");
+    TheLadders.reportForAggregateJobApplications(jobApplications, ReportFormatType.HTML);
+    
     System.out.println("Testing TheLadders.reportForAggregateJobApplicationsSuccessRate for CSV:");
     TheLadders.reportForAggregateJobApplicationsSuccessRate(jobApplications, ReportFormatType.CSV);
   }

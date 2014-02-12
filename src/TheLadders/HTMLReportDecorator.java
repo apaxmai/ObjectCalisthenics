@@ -15,7 +15,7 @@ public class HTMLReportDecorator implements ReportDecorator
 
     String decoratedReport = new String();
 
-    decoratedReport += "<html>\n<head><title>Job Applications Report by Day</title></head>\n<body>\n";
+    decoratedReport += "<html>\n<head><title>Job Applications Report</title></head>\n<body>\n";
     for (Integer rownum = 0; rownum < report.length(); rownum++)
     {
       List<Object> row = report.row(rownum);
