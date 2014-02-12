@@ -96,7 +96,7 @@ public class EmployerTest
 
   // 7.1
   @Test
-  public void testEmployerCanSeeApplicantsByJob() throws AlreadyExistsException, ResumeRequiredException
+  public void testEmployerCanSeeApplicantsByJob()
   {
     assertTrue( employer.jobseekersAppliedToJob(jobApplications, job).contains(sophie) );
   }
@@ -104,7 +104,7 @@ public class EmployerTest
 
   // 7.2
   @Test
-  public void testEmployerCanSeeApplicantsByDay() throws AlreadyExistsException, ResumeRequiredException
+  public void testEmployerCanSeeApplicantsByDay()
   {
     String today = new SimpleDateFormat("yyyyMMdd").format(Calendar.getInstance().getTime()) ;
     boolean found = false;

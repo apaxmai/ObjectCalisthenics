@@ -1,21 +1,25 @@
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.util.List;
 
+import job.AppliedJob;
 import job.Job;
 import job.JobFactory;
 import job.JobName;
 import job.JobType;
 import job.Jobs;
 import jobapplication.JobApplication;
+import jobapplication.JobApplications;
 import jobseeker.HumanName;
 import jobseeker.Jobseeker;
 import jobseeker.NoSuchResumeException;
 import jobseeker.ResumeName;
 import jobseeker.ResumeRequiredException;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import employer.AlreadyExistsException;
@@ -32,16 +36,40 @@ public class JobseekerTest
   // 6. Jobseekers should be able to see a listing of the jobs for which they have applied.
   // 13. Jobseekers, when displayed, should be displayed by their name.
 
+  private Employer employer;
+  private Job job;
+  private Jobseeker sophie;
+  private JobApplications jobApplications;
+  
+  @Before
+  public void testSetup() throws AlreadyExistsException, ResumeRequiredException 
+  {
+    employer = Employer.with(new EmployerName("Perfect Cuboid Masonry"));
+    job = JobFactory.jobFrom(employer, JobType.ATS, new JobName("CEO"));
+    employer.postJob(job);
+    
+    sophie = Jobseeker.with(new HumanName("Sophie", "Germain"));
+    
+    jobApplications = JobApplications.empty();
+    jobApplications.add(sophie.applyToJob(job));
+  }
+  
   // 3. Jobseekers can save jobs onsite for later viewing.
   @Test
-  public void testSaveJob() throws AlreadyExistsException
+  public void testSaveJob()
   {
-    Employer employer = Employer.with(new EmployerName("Perfect Cuboid Masonry"));
-    Job job = JobFactory.jobFrom(employer, JobType.ATS, new JobName("test testEmployerCanSeePostedJobs"));
-    employer.postJob(job);
-
-    Jobseeker sophie = Jobseeker.with(new HumanName("Sophie", "Germain"));
     sophie.saveJob(job);
+    
+    boolean found = false;
+    for( Job job : sophie.getListingOfSavedJobs() )
+    {
+      if( this.job.equals(job) )
+      {
+        found = true;
+      }
+    }
+    
+    assertTrue(found);
   }
 
 
@@ -49,12 +77,16 @@ public class JobseekerTest
   @Test
   public void testApplyToPostedJob() throws AlreadyExistsException, ResumeRequiredException
   {
-    Employer employer = Employer.with(new EmployerName("Perfect Cuboid Masonry"));
-    Job job = JobFactory.jobFrom(employer, JobType.ATS, new JobName("test testEmployerCanSeePostedJobs"));
-    employer.postJob(job);
-
-    Jobseeker sophie = Jobseeker.with(new HumanName("Sophie", "Germain"));
-    sophie.applyToJob(job);
+    boolean found = false;
+    for( JobApplication jobApplication : jobApplications )
+    {
+      if( jobApplication.isForJob(job) )
+      {
+        found = true;
+      }
+    }
+    
+    assertTrue(found);
   }
 
 
@@ -64,13 +96,7 @@ public class JobseekerTest
       NoSuchResumeException
   {
     // this cannot occur in the current design, but lets attempt to test it anyhow.
-    Employer employer = Employer.with(new EmployerName("Perfect Cuboid Masonry"));
-    Job job = JobFactory.jobFrom(employer, JobType.JREQ, new JobName("first Job"));
-    employer.postJob(job);
-
-    Jobseeker sophie = Jobseeker.with(new HumanName("Sophie", "Germain"));
     sophie.createResume("Sophie's Best Resume");
-
     Jobseeker fakeSophie = Jobseeker.with(new HumanName("M.", "LeBlanc"));
     fakeSophie.applyToJobWithResume(job, new ResumeName("Sophie's Best Resume"));
   }
@@ -81,10 +107,9 @@ public class JobseekerTest
   public void testApplyToJobsUsingDifferentResumes() throws AlreadyExistsException, ResumeRequiredException,
       NoSuchResumeException
   {
-    Employer employer = Employer.with(new EmployerName("Perfect Cuboid Masonry"));
-    Job job = JobFactory.jobFrom(employer, JobType.JREQ, new JobName("first Job"));
+    Job firstJob = JobFactory.jobFrom(employer, JobType.JREQ, new JobName("first Job"));
     Job alternateJob = JobFactory.jobFrom(employer, JobType.JREQ, new JobName("alternate Job"));
-    employer.postJob(job);
+    employer.postJob(firstJob);
     employer.postJob(alternateJob);
 
     Jobseeker sophie = Jobseeker.with(new HumanName("Sophie", "Germain"));
@@ -93,6 +118,9 @@ public class JobseekerTest
 
     sophie.applyToJobWithResume(job, new ResumeName("My Best Resume"));
     sophie.applyToJobWithResume(alternateJob, new ResumeName("My Average Quality Resume"));
+    
+    //if an exception was not thrown in applyToJobWithResume, then pass the test
+    assertTrue(true);
   }
 
 
@@ -100,11 +128,6 @@ public class JobseekerTest
   @Test
   public void testSeeListingOfSavedJobs() throws AlreadyExistsException
   {
-    Employer employer = Employer.with(new EmployerName("Perfect Cuboid Masonry"));
-    Job job = JobFactory.jobFrom(employer, JobType.ATS, new JobName("test testSeeListingOfSavedJobs"));
-    employer.postJob(job);
-
-    Jobseeker sophie = Jobseeker.with(new HumanName("Sophie", "Germain"));
     sophie.saveJob(job);
 
     Integer jobCount = 0;
@@ -117,7 +140,7 @@ public class JobseekerTest
     assertEquals(jobCount, one);
 
     Job temp = jobs.iterator().next();
-    assertEquals(temp.toString(), "test testSeeListingOfSavedJobs");
+    assertEquals(temp.toString(), "CEO");
   }
 
 
@@ -125,30 +148,16 @@ public class JobseekerTest
   @Test
   public void testSeeListingOfAppliedJobs() throws AlreadyExistsException, ResumeRequiredException
   {
-    Employer employer = Employer.with(new EmployerName("Perfect Cuboid Masonry"));
-    Job job = JobFactory.jobFrom(employer, JobType.ATS, new JobName("test testSeeListingOfAppliedJobs"));
-    employer.postJob(job);
 
-    Jobseeker sophie = Jobseeker.with(new HumanName("Sophie", "Germain"));
-    sophie.applyToJob(job);
-    /*
-    Integer jobCount = 0;
-    Integer one = 1;
-    List<JobApplication> applications = Globals.jobApplicationRepository.succeededJobApplicationsByJobseeker(sophie);
-    for (JobApplication application : applications)
+    boolean found = false;
+    for( AppliedJob appliedJob : sophie.getListingOfAppliedJobs() )
     {
-      if (!sophie.equals(application.getJobseeker()))
+      if( appliedJob.isForJob(job) )
       {
-        fail("jobseeker filter failure");
+        found = true;
       }
-      jobCount++;
     }
-    assertEquals(jobCount, one);
-
-    Job temp = applications.iterator().next().getJob();
-    assertEquals(temp.toString(), "test testSeeListingOfAppliedJobs");
-    */
-    fail("unimp");
+    assertTrue(found);
   }
 
 
@@ -156,7 +165,6 @@ public class JobseekerTest
   @Test
   public void testJobseekerIsRenderedByName() throws AlreadyExistsException
   {
-    Jobseeker sophie = Jobseeker.with(new HumanName("Sophie", "Germain"));
     assertEquals(sophie.toString(), "Sophie Germain");
   }
 
