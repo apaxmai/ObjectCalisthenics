@@ -46,4 +46,16 @@ public abstract class JobApplication
   {
     appliedJob.putJobRepresentation(sw);
   }
+
+
+  public boolean appliedOnDate(String date)
+  {
+    return appliedJob.appliedOnDate(date);
+  }
+
+
+  public boolean isForJob(Job job)
+  {
+    return appliedJob.isForJob(job);
+  }
 }

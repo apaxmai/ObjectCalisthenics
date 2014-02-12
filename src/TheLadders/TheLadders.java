@@ -14,7 +14,6 @@ import jobapplication.JobApplication;
 import jobapplication.JobApplications;
 import jobapplication.SuccessfulJobApplication;
 import jobseeker.Jobseeker;
-import datastructures.Triplet;
 import employer.Employer;
 
 public class TheLadders

@@ -1,7 +1,10 @@
+import static org.junit.Assert.assertTrue;
 import job.Job;
 import job.JobFactory;
 import job.JobName;
 import job.JobType;
+import jobapplication.FailedJobApplication;
+import jobapplication.JobApplication;
 import jobseeker.HumanName;
 import jobseeker.Jobseeker;
 import jobseeker.NoSuchResumeException;
@@ -19,9 +22,8 @@ public class JobApplicationManagerTest
   // 4 Jobseekers can apply to jobs posted by employers.
 
   // 4.2 "JReq jobs require a resume to apply to them."
-  @Test(expected = ResumeRequiredException.class)
-  public void testApplicationToJREQWithoutResumeThrowsException() throws AlreadyExistsException,
-      ResumeRequiredException
+  @Test
+  public void testApplicationToJREQWithoutResumeFails() throws AlreadyExistsException, ResumeRequiredException
   {
     Employer employer = Employer.with(new EmployerName("Perfect Cuboid Masonry"));
     Job job = JobFactory.jobFrom(employer,
@@ -30,7 +32,9 @@ public class JobApplicationManagerTest
     employer.postJob(job);
 
     Jobseeker sophie = Jobseeker.with(new HumanName("Sophie", "Germain"));
-    sophie.applyToJob(job);
+    JobApplication jobApplication = sophie.applyToJob(job);
+
+    assertTrue(jobApplication instanceof FailedJobApplication);
   }
 
 

@@ -8,6 +8,9 @@ import job.JobFactory;
 import job.JobName;
 import job.JobType;
 import job.Jobs;
+import jobapplication.JobApplication;
+import jobapplication.JobApplications;
+import jobseeker.Jobseeker;
 import jobseeker.Jobseekers;
 
 public class Employer
@@ -81,16 +84,58 @@ public class Employer
   }
 
 
-  public Jobseekers jobseekersAppliedToJob(Job job)
+  public Jobseekers jobseekersAppliedToJob(JobApplications jobApplications, Job job)
   {
-    // no data :)
-    return null; // todo
+    Jobseekers jobseekers = new Jobseekers();
+    Jobseeker[] jobseeker = new Jobseeker[1];
+    for( JobApplication jobApplication : jobApplications )
+    {
+      if( jobApplication.isForJob(job) )
+      {
+        jobApplication.putJobseeker(jobseeker);
+        jobseekers.add(jobseeker[0]);
+      }
+    }
+    return jobseekers;
   }
 
+  public Jobseekers jobseekersAppliedToJobByDay(JobApplications jobApplications,
+                                                Job job,
+                                                String today)
+  {
+    Jobseekers jobseekers = new Jobseekers();
+    Jobseeker[] jobseeker = new Jobseeker[1];
+    for( JobApplication jobApplication : jobApplications )
+    {
+      if( jobApplication.appliedOnDate(today) && jobApplication.isForJob(job) )
+      {
+        jobApplication.putJobseeker(jobseeker);
+        jobseekers.add(jobseeker[0]);
+      }
+    }
+    return jobseekers;
+  }
+
+  public Jobseekers jobseekersAppliedByDay(JobApplications jobApplications,
+                                           String today)
+  {
+    Jobseekers jobseekers = new Jobseekers();
+    Jobseeker[] jobseeker = new Jobseeker[1];
+    for( JobApplication jobApplication : jobApplications )
+    {
+      if( jobApplication.appliedOnDate(today) )
+      {
+        jobApplication.putJobseeker(jobseeker);
+        jobseekers.add(jobseeker[0]);
+      }
+    }
+    return jobseekers;
+  }
 
   public void putRepresentation(StringWriter sw)
   {
     this.name.putRepresentation(sw);
   }
+
 
 }

@@ -31,5 +31,15 @@ public abstract class AppliedJob
   {
     job.putRepresentation(sw);
   }
+
+  public boolean appliedOnDate(String date)
+  {
+    return this.time.equals(date);
+  }
+
+  public boolean isForJob(Job job)
+  {
+    return this.job.equals(job);
+  }
   
 }
