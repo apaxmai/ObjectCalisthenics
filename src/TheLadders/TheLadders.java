@@ -9,8 +9,10 @@ import java.util.Map;
 
 import job.AppliedJob;
 import job.Job;
+import jobapplication.FailedJobApplication;
 import jobapplication.JobApplication;
 import jobapplication.JobApplications;
+import jobapplication.SuccessfulJobApplication;
 import jobseeker.Jobseeker;
 import datastructures.Triplet;
 import employer.Employer;
@@ -144,45 +146,85 @@ public class TheLadders
                                                                   ReportFormatType theReportFormatType)
   {
     Report report = new Report();
-/*
-    // employer, job, applicationcount, ok%
 
-    // this code is duplicated, need to combine into function //todo
-
-    // this type needs to be created instead of list of triplet //todo
-    List<Triplet<Employer, Job, Integer>> applicationAggregator = new ArrayList<>();
-
-    List<JobApplication> applications = Globals.jobApplicationRepository.succeededJobApplications();
-    for (JobApplication application : applications)
+    // employer, job, successfulcount, failedcount
+    StringWriter sw;
+    Map<String, Map<String, Integer[]>> uniqueEmployers = new HashMap<String, Map<String, Integer[]>>();
+    for( JobApplication jobApplication : jobApplications )
     {
-      Job job = application.getJob(); // until i figure out how to do this, just do it. ( could be:
-                                      // Job job; application.putJob(&job); )
-      Employer employer = job.creator(); // Globals.postedJobRepository.getEmployerForJob(job);
-
-      // if it does not contain [Employer, Job], add it
-      boolean found = false;
-      for (Triplet<Employer, Job, Integer> tuple : applicationAggregator)
+      sw = new StringWriter();
+      jobApplication.putEmployerRepresentation(sw);
+      String employerRepresentation = sw.toString();
+      
+      sw = new StringWriter();
+      jobApplication.putJobRepresentation(sw);
+      String jobRepresentation = sw.toString();
+      
+      Map<String, Integer[]> jobApplicationCountMap;
+      if( uniqueEmployers.containsKey(employerRepresentation) )
       {
-        if (employer.equals(tuple.getFirst()) && job.equals(tuple.getSecond()))
+        jobApplicationCountMap = uniqueEmployers.get(employerRepresentation);
+        if( jobApplicationCountMap.containsKey(jobRepresentation) )
         {
-          // todo
-          // update count in triplet in applicationAggregator
-          // this def. needs its own object with update method.
-          found = true;
+          Integer[] currentCounts = jobApplicationCountMap.get(jobRepresentation);
+          
+          if( jobApplication instanceof SuccessfulJobApplication )
+          {
+            currentCounts[0]++;
+          }
+          if( jobApplication instanceof FailedJobApplication )
+          {
+            currentCounts[1]++;
+          }
+          
+          jobApplicationCountMap.put(jobRepresentation, currentCounts);
+          uniqueEmployers.put(employerRepresentation, jobApplicationCountMap);
+        }
+        
+        if( ! jobApplicationCountMap.containsKey(jobRepresentation) )
+        {
+          jobApplicationCountMap = new HashMap<String, Integer[]>();
+          if( jobApplication instanceof SuccessfulJobApplication )
+          {
+            jobApplicationCountMap.put(jobRepresentation, new Integer[]{1,0});
+          }
+          if( jobApplication instanceof FailedJobApplication )
+          {
+            jobApplicationCountMap.put(jobRepresentation, new Integer[]{0,1});
+          }
+
+          uniqueEmployers.put(employerRepresentation, jobApplicationCountMap);
         }
       }
-      if (!found)
+      if( ! uniqueEmployers.containsKey(employerRepresentation) )
       {
-        applicationAggregator.add(new Triplet<Employer, Job, Integer>(employer, job, 0));
+        jobApplicationCountMap = new HashMap<String, Integer[]>();
+        if( jobApplication instanceof SuccessfulJobApplication )
+        {
+          jobApplicationCountMap.put(jobRepresentation, new Integer[]{1,0});
+        }
+        if( jobApplication instanceof FailedJobApplication )
+        {
+          jobApplicationCountMap.put(jobRepresentation, new Integer[]{0,1});
+        }
+        uniqueEmployers.put(employerRepresentation, jobApplicationCountMap);
       }
-
-      // report.addRow(employer.toString(), job.toString(), applicationCount,
-      // successPct.toString());
     }
-    // for all entries for the aggregate report:
-    // foreach job and employer
-    // Globals.jobApplicationRepository.failedJobApplicationsByJob(job);
-*/
+
+    for (Map.Entry entry : uniqueEmployers.entrySet())
+    {
+      String employerRepresentation = (String) entry.getKey();
+      Object innerHashMap = entry.getValue();
+      
+      for (Map.Entry innerEntry : ((Map<String, Map<String, Integer[]>>) innerHashMap).entrySet())
+      {
+        String jobRepresentation = (String) innerEntry.getKey();
+        
+        Integer[] applicationCounts = (Integer[]) innerEntry.getValue();
+        report.addRow(employerRepresentation, jobRepresentation, applicationCounts[0], applicationCounts[1]);
+      }
+    }
+
     if (ReportFormatType.CSV == theReportFormatType)
     {
       String decoratedReport = myCSVReportDecorator.decorate(report);
@@ -196,13 +238,6 @@ public class TheLadders
       System.out.println(decoratedReport);
       return;
     }
-  }
-
-
-  public static void reportForAggregateJobApplicationsSuccessRate(Employer theEmployer,
-                                                                  ReportFormatType theReportFormatType)
-  {
-    // this method will be extracted from the above. (byEmployer, then collect and decorate)
   }
 
 }

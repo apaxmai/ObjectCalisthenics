@@ -19,7 +19,7 @@ import employer.EmployerName;
 
 public class ObjectCalisthenics
 {
-  public final static void main(String[] args) throws AlreadyExistsException, NoSuchResumeException
+  public final static void main(String[] args) throws AlreadyExistsException, NoSuchResumeException, ResumeRequiredException
   {
 
     Employer theMasonry = Employer.with(new EmployerName("Perfect Cuboid Masonry"));
@@ -48,32 +48,15 @@ public class ObjectCalisthenics
     Jobseeker euler = Jobseeker.with(new HumanName("Leonhard", "Euler"));
     Jobseeker me = Jobseeker.with(new HumanName("Charles", "Morris"));
 
-    try
-    {
-      jobApplications.add( sophie.applyToJob(numberStoreJob) );
-      jobApplications.add( euler.applyToJob(numberStoreJob) );
-    }
-    catch (ResumeRequiredException e)
-    {
-    }
+    jobApplications.add( sophie.applyToJob(numberStoreJob) );
+    jobApplications.add( euler.applyToJob(numberStoreJob) );
 
-    try
-    {
-      System.out.println("Jobseeker applying to ATS CEO without Resume");
-      jobApplications.add( euler.applyToJob(masonryCEOJob) );
-    }
-    catch (ResumeRequiredException innerEx)
-    {
-    }
+    System.out.println("Jobseeker applying to ATS CEO without Resume");
+    jobApplications.add( euler.applyToJob(masonryCEOJob) );
 
-    try
-    {
-      System.out.println("Jobseeker applying to ATS Groundskeeper without Resume");
-      jobApplications.add( euler.applyToJob(masonryGroundskeeperJob1) );
-    }
-    catch (ResumeRequiredException innerEx)
-    {
-    }
+
+    System.out.println("Jobseeker applying to ATS Groundskeeper without Resume");
+    jobApplications.add( euler.applyToJob(masonryGroundskeeperJob1) );
 
     System.out.println("Jobseeker saving job Senior Geometer");
     euler.saveJob(masonrySeniorGeometerJob);
@@ -81,26 +64,13 @@ public class ObjectCalisthenics
     System.out.print("The saved job was: ");
     euler.getListingOfSavedJobs();
 
-    try
-    {
-      System.out.println("Jobseeker applying to JREQ Senior Geometer without Resume");
-      jobApplications.add( me.applyToJob(masonrySeniorGeometerJob) );
-    }
-    catch (ResumeRequiredException ex)
-    {
-      System.out.println("Jobseeker recieved a ResumeRequiredException... creating a resume");
-      me.createResume("All About Me");
-      me.createResume("Relevant Facts");
-      try
-      {
-        System.out.println("Jobseeker applying to JREQ Senior Geometer with Resume");
-        jobApplications.add( me.applyToJobWithResume(masonrySeniorGeometerJob, new ResumeName("Relevant Facts")));
-      }
-      catch (ResumeRequiredException ex2)
-      {
-        System.out.println("Exception: Jobseeker applying to JREQ Senior Geometer with Resume [FAILED]: " + ex2);
-      }
-    }
+
+    System.out.println("Jobseeker applying to JREQ Senior Geometer without Resume");
+    jobApplications.add( me.applyToJob(masonrySeniorGeometerJob) );
+    me.createResume("All About Me");
+    me.createResume("Relevant Facts");
+    jobApplications.add( me.applyToJobWithResume(masonrySeniorGeometerJob, new ResumeName("Relevant Facts")));
+
 
     String today = new SimpleDateFormat("yyyyMMdd").format(Calendar.getInstance().getTime());
 
