@@ -1,4 +1,5 @@
 package TheLadders;
+
 import java.util.List;
 
 public class HTMLReportDecorator implements ReportDecorator

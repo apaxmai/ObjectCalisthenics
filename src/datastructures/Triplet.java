@@ -1,9 +1,11 @@
 package datastructures;
+
 public class Triplet<A, B, C>
 {
   private A first;
   private B second;
   private C third;
+
 
   public Triplet(A first,
                  B second,
@@ -15,20 +17,24 @@ public class Triplet<A, B, C>
     this.third = third;
   }
 
+
   public String toString()
   {
     return "(" + first.toString() + ", " + second.toString() + ", " + third.toString() + ")";
   }
+
 
   public A getFirst()
   {
     return first;
   }
 
+
   public B getSecond()
   {
     return second;
   }
+
 
   public C getThird()
   {

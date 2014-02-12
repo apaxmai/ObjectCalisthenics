@@ -1,57 +1,49 @@
 package jobapplication;
-import globals.Globals;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import job.ATSJob;
+import job.AppliedJob;
+import job.FailedAppliedJob;
 import job.JReqJob;
 import job.Job;
-import job.Jobs;
+import job.SuccessfulAppliedJob;
 import jobseeker.Jobseeker;
 import jobseeker.Resume;
-import jobseeker.ResumeRequiredException;
 
 public class JobApplicationManager
 {
 
-  public static void acceptApplicationToJob(Jobseeker jobseeker,
+  public static JobApplication acceptApplicationToJob(Jobseeker jobseeker,
                                             Job job,
-                                            Resume resume) throws ResumeRequiredException
+                                            Resume resume)
   {
     if ((Resume.invalid == resume) && (job instanceof JReqJob))
     {
-      Globals.jobApplicationRepository.addFailedJobApplication(JobApplication.from(jobseeker, resume, job));
-      throw new ResumeRequiredException();
+      AppliedJob appliedjob = FailedAppliedJob.from(job);
+      jobseeker.addAppliedJob(appliedjob);
+      return FailedJobApplication.from(appliedjob, jobseeker);
     }
 
-    Globals.jobApplicationRepository.addJobApplication(JobApplication.from(jobseeker, resume, job));
+
+    AppliedJob appliedjob = SuccessfulAppliedJob.from(job);
+    jobseeker.addAppliedJob(appliedjob);
+    return SuccessfulJobApplication.from(appliedjob, jobseeker);
   }
 
-  public static void acceptApplicationToJob(Jobseeker jobseeker,
-                                            Job job) throws ResumeRequiredException
+
+  public static JobApplication acceptApplicationToJob(Jobseeker jobseeker,
+                                            Job job)
   {
-    if (job instanceof JReqJob)
+    if (job instanceof ATSJob)
     {
-      throw new ResumeRequiredException();
+      AppliedJob appliedjob = SuccessfulAppliedJob.from(job);
+      jobseeker.addAppliedJob(appliedjob);
+      return SuccessfulJobApplication.from(appliedjob, jobseeker);
     }
 
-    Globals.jobApplicationRepository.addJobApplication(JobApplication.from(jobseeker, job));
+    AppliedJob appliedjob = FailedAppliedJob.from(job);
+    jobseeker.addAppliedJob(appliedjob);
+    return FailedJobApplication.from(appliedjob, jobseeker);
   }
-
-  public static Jobs appliedJobs(Jobseeker jobseeker)
-  {
-
-    Jobs appliedToJobs = new Jobs();
-    List<JobApplication> applications = Globals.jobApplicationRepository.succeededJobApplicationsByJobseeker(jobseeker);
-    for (JobApplication application : applications)
-    {
-      if (jobseeker.equals(application.getJobseeker()))
-      {
-        appliedToJobs.add(application.getJob());
-      }
-    }
-
-    return appliedToJobs;
-  }
+ 
 
 }

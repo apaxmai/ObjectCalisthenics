@@ -1,9 +1,5 @@
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-
-import TheLadders.ReportFormatType;
-import TheLadders.TheLadders;
 
 import job.Job;
 import job.JobFactory;
@@ -11,24 +7,22 @@ import job.JobName;
 import job.JobType;
 import jobseeker.HumanName;
 import jobseeker.Jobseeker;
-import jobseeker.JobseekerFactory;
 import jobseeker.NoSuchResumeException;
 import jobseeker.ResumeName;
 import jobseeker.ResumeRequiredException;
+import TheLadders.ReportFormatType;
+import TheLadders.TheLadders;
 import employer.AlreadyExistsException;
 import employer.Employer;
-import employer.EmployerFactory;
 import employer.EmployerName;
-
-
 
 public class ObjectCalisthenics
 {
   public final static void main(String[] args) throws AlreadyExistsException, NoSuchResumeException
   {
 
-    Employer theMasonry = EmployerFactory.employerFrom(new EmployerName("Perfect Cuboid Masonry"));
-    Employer numbersRUs = EmployerFactory.employerFrom(new EmployerName("Numbers-R-Us"));
+    Employer theMasonry = Employer.with(new EmployerName("Perfect Cuboid Masonry"));
+    Employer numbersRUs = Employer.with(new EmployerName("Numbers-R-Us"));
 
     Job masonryCEOJob = JobFactory.jobFrom(theMasonry, JobType.ATS, new JobName("CEO"));
     Job masonryGroundskeeperJob1 = JobFactory.jobFrom(theMasonry, JobType.ATS, new JobName("Groundskeeper"));
@@ -36,7 +30,9 @@ public class ObjectCalisthenics
     Job masonryGroundskeeperJob3 = JobFactory.jobFrom(theMasonry, JobType.ATS, new JobName("Groundskeeper"));
     Job masonrySeniorGeometerJob = JobFactory.jobFrom(theMasonry, JobType.JREQ, new JobName("Senior Geometer"));
 
-    Job numberStoreJob = JobFactory.jobFrom(numbersRUs, JobType.ATS, new JobName("Head of 64-bit Unsigned Integer Sales"));
+    Job numberStoreJob = JobFactory.jobFrom(numbersRUs,
+                                            JobType.ATS,
+                                            new JobName("Head of 64-bit Unsigned Integer Sales"));
 
     theMasonry.postJob(masonryCEOJob);
     theMasonry.postJob(masonryGroundskeeperJob1);
@@ -46,16 +42,17 @@ public class ObjectCalisthenics
 
     numbersRUs.postJob(numberStoreJob);
 
-    Jobseeker sophie = JobseekerFactory.jobseekerFrom( new HumanName("Sophie", "Germain") );
-    Jobseeker euler = JobseekerFactory.jobseekerFrom( new HumanName("Leonhard", "Euler") );
-    Jobseeker me = JobseekerFactory.jobseekerFrom( new HumanName("Charles", "Morris") );
+    Jobseeker sophie = Jobseeker.with(new HumanName("Sophie", "Germain"));
+    Jobseeker euler = Jobseeker.with(new HumanName("Leonhard", "Euler"));
+    Jobseeker me = Jobseeker.with(new HumanName("Charles", "Morris"));
 
     try
     {
       sophie.applyToJob(numberStoreJob);
     }
     catch (ResumeRequiredException e)
-    {}
+    {
+    }
 
     try
     {
@@ -63,7 +60,8 @@ public class ObjectCalisthenics
       euler.applyToJob(masonryCEOJob);
     }
     catch (ResumeRequiredException innerEx)
-    {}
+    {
+    }
 
     try
     {
@@ -71,11 +69,12 @@ public class ObjectCalisthenics
       euler.applyToJob(masonryGroundskeeperJob1);
     }
     catch (ResumeRequiredException innerEx)
-    {}
+    {
+    }
 
     System.out.println("Jobseeker saving job Senior Geometer");
     euler.saveJob(masonrySeniorGeometerJob);
-    
+
     System.out.print("The saved job was: ");
     euler.getListingOfSavedJobs();
 

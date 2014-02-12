@@ -1,22 +1,26 @@
 package employer;
-import datastructures.IdentifyingType;
+
 import hashcodeprovider.HashCodeProvider;
+import datastructures.IdentifyingType;
 
 public class EmployerID
 {
   public static EmployerID invalid;
   private IdentifyingType  id;
 
-  public EmployerID(IdentifyingType id)
+
+  public EmployerID()
   {
-    this.id = new IdentifyingType(id);
+    this.id = new IdentifyingType();
   }
+
 
   @Override
   public boolean equals(Object o)
   {
-    return (o instanceof EmployerID) && ( ((EmployerID)o).id.equals( this.id ) );
+    return (o instanceof EmployerID) && (((EmployerID) o).id.equals(this.id));
   }
+
 
   @Override
   public int hashCode()

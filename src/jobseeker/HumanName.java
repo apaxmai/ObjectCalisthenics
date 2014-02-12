@@ -1,14 +1,17 @@
 package jobseeker;
+
 public class HumanName
 {
 
   private String givenName;
   private String familyName;
 
+
   public HumanName(String givenName)
   {
     this.givenName = givenName;
   }
+
 
   public HumanName(String givenName,
                    String familyName)
@@ -16,6 +19,7 @@ public class HumanName
     this.givenName = givenName;
     this.familyName = familyName;
   }
+
 
   @Override
   public String toString()

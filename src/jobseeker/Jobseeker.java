@@ -1,56 +1,55 @@
 package jobseeker;
 
-import java.util.HashMap;
-
-import employer.AlreadyExistsException;
-import globals.Globals;
+import job.AppliedJob;
+import job.AppliedJobs;
 import job.Job;
 import job.Jobs;
 import jobapplication.JobApplicationManager;
 
-
 public class Jobseeker
 {
-  //private JobseekerIdentity identity; //contains JobseekerID and HumanName
-  private JobseekerID                 id;
-  private Resumes                     resumes;
-  //private HashMap<ResumeName, Resume> resumes; //this is a type Resumes
+  private JobseekerID           id;
+  private Resumes               resumes;
+  private JobseekerJobContainer jobContainer; // maybe rename to ...
 
-  public static Jobseeker jobseekerFrom(JobseekerID id) throws AlreadyExistsException
+
+  public static Jobseeker with(HumanName name)
   {
-    if( ! Globals.createdJobseekerRepository.containsJobseekerWithID(id) )
-    {
-      Jobseeker ret = new Jobseeker(id);
-      Globals.createdJobseekerRepository.add(ret);
-      return ret;
-    }
-    throw new AlreadyExistsException();
+    return new Jobseeker(new JobseekerID(name));
   }
+
+
   private Jobseeker(JobseekerID id)
   {
     this.id = id;
-    resumes = new Resumes(); //HashMap<ResumeName, Resume>();
+    jobContainer = JobseekerJobContainer.empty();
+    resumes = new Resumes();
   }
+
 
   public void saveJob(Job job)
   {
-    Globals.savedJobRepository.addSavedJob(job, this);
+    jobContainer.addSavedJob(job);
   }
+
 
   public void createResume(String rName)
   {
     createResume(new ResumeName(rName));
   }
 
+
   public void createResume(ResumeName rName)
   {
     resumes.add(new Resume(rName));
   }
 
+
   public void applyToJob(Job job) throws ResumeRequiredException
   {
     JobApplicationManager.acceptApplicationToJob(this, job);
   }
+
 
   public void applyToJobWithResume(Job job,
                                    ResumeName rName) throws ResumeRequiredException, NoSuchResumeException
@@ -59,7 +58,7 @@ public class Jobseeker
     if (ResumeName.invalid != rName)
     {
       theResumeToSubmit = resumes.resumeWithName(rName);
-      if( theResumeToSubmit == Resume.invalid )
+      if (theResumeToSubmit == Resume.invalid)
       {
         throw new NoSuchResumeException();
       }
@@ -68,34 +67,37 @@ public class Jobseeker
     JobApplicationManager.acceptApplicationToJob(this, job, theResumeToSubmit);
   }
 
-  // (5) Jobseekers should be able to see a listing of jobs they have saved for later viewing.
-  public void getListingOfSavedJobs()
+
+  public void addAppliedJob(AppliedJob appliedJob)
   {
-    for( Job job : Globals.savedJobRepository.getSavedJobsForJobseeker(this) )
-    {
-      //jobseeker doSomething() with this information (outside the scope of project)
-    }
+    jobContainer.addAppliedJob(appliedJob);
   }
 
-  // (6) Jobseekers should be able to see a listing of the jobs for which they have applied. //todo
-  public void getListingOfAppliedJobs()
+
+  // (5) Jobseekers should be able to see a listing of jobs they have saved for later viewing.
+  public Jobs getListingOfSavedJobs()
   {
-    Jobs appliedJobs = JobApplicationManager.appliedJobs(this);
-    for( Job job : appliedJobs )
-    {
-      //jobseeker doSomethingElse() with the listing. (outside the scope of project)
-    }
+    return jobContainer.savedJobs();
   }
+
+
+  // (6) Jobseekers should be able to see a listing of the jobs for which they have applied. //todo
+  public AppliedJobs getListingOfAppliedJobs()
+  {
+    return jobContainer.appliedJobs();
+  }
+
 
   @Override
   public String toString()
   {
     return id.toString();
   }
-  
+
+
   public boolean hasID(JobseekerID id)
   {
-	return this.id.equals(id);
+    return this.id.equals(id);
   }
 
 }

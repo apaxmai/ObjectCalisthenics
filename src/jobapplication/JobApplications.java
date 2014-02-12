@@ -1,27 +1,42 @@
 package jobapplication;
-public class JobApplications
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+public class JobApplications implements java.lang.Iterable<JobApplication>
 {
-	//this is mostly delete
-  // private static ArrayList<JobApplication> myJobApplications = new ArrayList<>();
-//  private static JobApplicationContainer myJobApplications = new JobApplicationContainer();
+  private List<JobApplication> appliedJobs;
 
-//  public static void add(JobApplication theJobApplication)
-//  {
-//    myJobApplications.add(theJobApplication);
-//  }
 
-//  public JobApplications()
-//  {
-//    myJobApplications = new JobApplicationContainer();
-//  }
+  public static JobApplications empty()
+  {
+    return new JobApplications();
+  }
 
-  // function to view all applications accessible by TheLadders
-  /*
-   * TheLadders should be able to get a report of what jobseekers have applied to jobs on any given
-   * day. TheLadders should be able to get the job application report in either csv or html format.
-   * TheLadders should be able to ascertain jobseeker, job, employer amd job application date from
-   * the job application report. TheLadders should be able to see aggregate job application numbers
-   * by job and employer. TheLadders should be able to see how many job applications failed and how
-   * many succeeded aggregated by job and employer.
-   */
+
+  private JobApplications()
+  {
+    this.appliedJobs = new ArrayList<>();
+  }
+
+
+  private JobApplications(List<JobApplication> appliedJobs)
+  {
+    this.appliedJobs = appliedJobs;
+  }
+
+
+  public void add(JobApplication appliedJob)
+  {
+    appliedJobs.add(appliedJob);
+  }
+
+
+  @Override
+  public Iterator<JobApplication> iterator()
+  {
+    return appliedJobs.iterator();
+  }
+
 };

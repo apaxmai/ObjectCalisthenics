@@ -1,5 +1,5 @@
 package job;
-import datastructures.IdentifyingType;
+
 import employer.AlreadyExistsException;
 import employer.Employer;
 
@@ -8,20 +8,21 @@ public class JobFactory
 
   private static Integer jobIDCounter = 0;
 
+
   public static Job jobFrom(Employer creator,
-		                    JobType jobType,
+                            JobType jobType,
                             JobName jobName) throws AlreadyExistsException
   {
-    JobID id = new JobID(new IdentifyingType(jobIDCounter), jobName);
+    JobID id = new JobID(jobName);
 
     Job job = null;
-    if( JobType.ATS == jobType )
+    if (JobType.ATS == jobType)
     {
-      job = ATSJob.jobFrom(creator, id);
+      job = ATSJob.from(creator, id);
     }
     if (JobType.JREQ == jobType)
     {
-      job = JReqJob.jobFrom(creator, id);
+      job = JReqJob.from(creator, id);
     }
 
     jobIDCounter++;
