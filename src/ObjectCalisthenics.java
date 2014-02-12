@@ -5,6 +5,7 @@ import job.Job;
 import job.JobFactory;
 import job.JobName;
 import job.JobType;
+import jobapplication.JobApplications;
 import jobseeker.HumanName;
 import jobseeker.Jobseeker;
 import jobseeker.NoSuchResumeException;
@@ -39,8 +40,9 @@ public class ObjectCalisthenics
     theMasonry.postJob(masonryGroundskeeperJob2);
     theMasonry.postJob(masonryGroundskeeperJob3);
     theMasonry.postJob(masonrySeniorGeometerJob);
-
     numbersRUs.postJob(numberStoreJob);
+    
+    JobApplications jobApplications = JobApplications.empty();
 
     Jobseeker sophie = Jobseeker.with(new HumanName("Sophie", "Germain"));
     Jobseeker euler = Jobseeker.with(new HumanName("Leonhard", "Euler"));
@@ -48,7 +50,7 @@ public class ObjectCalisthenics
 
     try
     {
-      sophie.applyToJob(numberStoreJob);
+      jobApplications.add( sophie.applyToJob(numberStoreJob) );
     }
     catch (ResumeRequiredException e)
     {
@@ -57,7 +59,7 @@ public class ObjectCalisthenics
     try
     {
       System.out.println("Jobseeker applying to ATS CEO without Resume");
-      euler.applyToJob(masonryCEOJob);
+      jobApplications.add( euler.applyToJob(masonryCEOJob) );
     }
     catch (ResumeRequiredException innerEx)
     {
@@ -66,7 +68,7 @@ public class ObjectCalisthenics
     try
     {
       System.out.println("Jobseeker applying to ATS Groundskeeper without Resume");
-      euler.applyToJob(masonryGroundskeeperJob1);
+      jobApplications.add( euler.applyToJob(masonryGroundskeeperJob1) );
     }
     catch (ResumeRequiredException innerEx)
     {
@@ -81,7 +83,7 @@ public class ObjectCalisthenics
     try
     {
       System.out.println("Jobseeker applying to JREQ Senior Geometer without Resume");
-      me.applyToJob(masonrySeniorGeometerJob);
+      jobApplications.add( me.applyToJob(masonrySeniorGeometerJob) );
     }
     catch (ResumeRequiredException ex)
     {
@@ -91,7 +93,7 @@ public class ObjectCalisthenics
       try
       {
         System.out.println("Jobseeker applying to JREQ Senior Geometer with Resume");
-        me.applyToJobWithResume(masonrySeniorGeometerJob, new ResumeName("Relevant Facts"));
+        jobApplications.add( me.applyToJobWithResume(masonrySeniorGeometerJob, new ResumeName("Relevant Facts")));
       }
       catch (ResumeRequiredException ex2)
       {
@@ -102,12 +104,12 @@ public class ObjectCalisthenics
     String today = new SimpleDateFormat("yyyyMMdd").format(Calendar.getInstance().getTime());
 
     System.out.println("Testing TheLadders.reportForJobApplicationsByDay for Today and CSV:");
-    TheLadders.reportForJobApplicationsByDay(today, ReportFormatType.CSV);
+    TheLadders.reportForJobApplicationsByDay(jobApplications, today, ReportFormatType.CSV);
 
     System.out.println("Testing TheLadders.reportForJobApplicationsByDay for Today and HTML:");
-    TheLadders.reportForJobApplicationsByDay(today, ReportFormatType.HTML);
+    TheLadders.reportForJobApplicationsByDay(jobApplications, today, ReportFormatType.HTML);
 
     System.out.println("Testing TheLadders.reportForAggregateJobApplicationsSuccessRate for CSV:");
-    TheLadders.reportForAggregateJobApplicationsSuccessRate(ReportFormatType.CSV);
+    TheLadders.reportForAggregateJobApplicationsSuccessRate(jobApplications, ReportFormatType.CSV);
   }
 }

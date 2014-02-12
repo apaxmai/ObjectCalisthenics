@@ -1,5 +1,7 @@
 package employer;
 
+import java.io.StringWriter;
+
 import hashcodeprovider.HashCodeProvider;
 
 public class EmployerName
@@ -44,6 +46,11 @@ public class EmployerName
   public String toString()
   {
     return name;
+  }
+
+  public void putRepresentation(StringWriter sw)
+  {
+    sw.write(name); 
   }
 
 }

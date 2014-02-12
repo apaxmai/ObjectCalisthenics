@@ -131,7 +131,7 @@ public class JobseekerTest
 
     Jobseeker sophie = Jobseeker.with(new HumanName("Sophie", "Germain"));
     sophie.applyToJob(job);
-
+    /*
     Integer jobCount = 0;
     Integer one = 1;
     List<JobApplication> applications = Globals.jobApplicationRepository.succeededJobApplicationsByJobseeker(sophie);
@@ -147,6 +147,8 @@ public class JobseekerTest
 
     Job temp = applications.iterator().next().getJob();
     assertEquals(temp.toString(), "test testSeeListingOfAppliedJobs");
+    */
+    fail("unimp");
   }
 
 

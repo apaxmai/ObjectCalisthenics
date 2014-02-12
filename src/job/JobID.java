@@ -1,5 +1,7 @@
 package job;
 
+import java.io.StringWriter;
+
 import hashcodeprovider.HashCodeProvider;
 import datastructures.IdentifyingType;
 
@@ -36,6 +38,12 @@ public class JobID
   public int hashCode()
   {
     return HashCodeProvider.hashCodeFor(this, id.hashCode());
+  }
+
+
+  public void putRepresentation(StringWriter sw)
+  {
+    this.name.putRepresentation(sw);  
   }
 
 };

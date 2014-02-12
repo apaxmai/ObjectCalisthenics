@@ -1,5 +1,7 @@
 package employer;
 
+import java.io.StringWriter;
+
 import hashcodeprovider.HashCodeProvider;
 import job.Job;
 import job.JobFactory;
@@ -26,6 +28,7 @@ public class Employer
   {
     this.id = id;
     this.name = name;
+    this.postedJobs = new Jobs();
   }
 
 
@@ -82,6 +85,12 @@ public class Employer
   {
     // no data :)
     return null; // todo
+  }
+
+
+  public void putRepresentation(StringWriter sw)
+  {
+    this.name.putRepresentation(sw);
   }
 
 }

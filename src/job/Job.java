@@ -1,5 +1,7 @@
 package job;
 
+import java.io.StringWriter;
+
 import hashcodeprovider.HashCodeProvider;
 import employer.Employer;
 
@@ -38,5 +40,16 @@ public abstract class Job
   public Employer creator()
   {
     return this.creator;
+  }
+
+
+  public void putRepresentation(StringWriter sw)
+  {
+    this.id.putRepresentation(sw);  
+  }
+  
+  public void putEmployerRepresentation(StringWriter sw)
+  {
+    this.creator.putRepresentation(sw);
   }
 };

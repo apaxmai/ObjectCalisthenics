@@ -1,9 +1,12 @@
 package jobseeker;
 
+import java.io.StringWriter;
+
 import job.AppliedJob;
 import job.AppliedJobs;
 import job.Job;
 import job.Jobs;
+import jobapplication.JobApplication;
 import jobapplication.JobApplicationManager;
 
 public class Jobseeker
@@ -45,13 +48,13 @@ public class Jobseeker
   }
 
 
-  public void applyToJob(Job job) throws ResumeRequiredException
+  public JobApplication applyToJob(Job job) throws ResumeRequiredException
   {
-    JobApplicationManager.acceptApplicationToJob(this, job);
+    return JobApplicationManager.acceptApplicationToJob(this, job);
   }
 
 
-  public void applyToJobWithResume(Job job,
+  public JobApplication applyToJobWithResume(Job job,
                                    ResumeName rName) throws ResumeRequiredException, NoSuchResumeException
   {
     Resume theResumeToSubmit = Resume.invalid;
@@ -64,7 +67,7 @@ public class Jobseeker
       }
     }
 
-    JobApplicationManager.acceptApplicationToJob(this, job, theResumeToSubmit);
+    return JobApplicationManager.acceptApplicationToJob(this, job, theResumeToSubmit);
   }
 
 
@@ -98,6 +101,12 @@ public class Jobseeker
   public boolean hasID(JobseekerID id)
   {
     return this.id.equals(id);
+  }
+
+
+  public void putRepresentation(StringWriter sw)
+  {
+    id.putRepresentation(sw); 
   }
 
 }

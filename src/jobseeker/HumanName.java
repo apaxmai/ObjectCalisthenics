@@ -1,5 +1,7 @@
 package jobseeker;
 
+import java.io.StringWriter;
+
 public class HumanName
 {
 
@@ -25,6 +27,12 @@ public class HumanName
   public String toString()
   {
     return (this.givenName + " " + this.familyName);
+  }
+
+
+  public void putRepresentation(StringWriter sw)
+  {
+    sw.write(this.givenName + " " + this.familyName);
   }
 
 }

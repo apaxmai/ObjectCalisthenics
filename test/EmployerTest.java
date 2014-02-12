@@ -57,7 +57,8 @@ public class EmployerTest
     Job job = JobFactory.jobFrom(employer, JobType.ATS, new JobName("CEO"));
     employer.postJob(job);
 
-    assertTrue(Globals.postedJobRepository.containsJobWithID(job.id)); // and here
+    //assertTrue(Globals.postedJobRepository.containsJobWithID(job.id)); // and here
+    fail("unimp");
   }
 
 
@@ -117,7 +118,7 @@ public class EmployerTest
 
     Jobseeker sophie = Jobseeker.with(new HumanName("Sophie", "Germain"));
     sophie.applyToJob(job);
-
+    /*
     String today = new SimpleDateFormat("yyyyMMdd").format(Calendar.getInstance().getTime());
     List<JobApplication> applications = Globals.jobApplicationRepository.succeededJobApplicationsByDay(today);
 
@@ -133,7 +134,8 @@ public class EmployerTest
     if (found == false)
     {
       fail("cannot find application by day");
-    }
+    }*/
+    fail("unimp");
   }
 
 
@@ -147,7 +149,7 @@ public class EmployerTest
 
     Jobseeker sophie = Jobseeker.with(new HumanName("Sophie", "Germain"));
     sophie.applyToJob(job);
-
+    /*
     String today = new SimpleDateFormat("yyyyMMdd").format(Calendar.getInstance().getTime());
     List<JobApplication> applications = Globals.jobApplicationRepository.succeededJobApplicationsByJobAndDay(job, today);
 
@@ -164,6 +166,8 @@ public class EmployerTest
     {
       fail("cannot find application by job AND day");
     }
+    */
+    fail("unimp");
   }
 
 

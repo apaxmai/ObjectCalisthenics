@@ -1,5 +1,7 @@
 package job;
 
+import java.io.StringWriter;
+
 public class JobName
 {
   public static JobName invalid;
@@ -16,5 +18,11 @@ public class JobName
   public String toString()
   {
     return this.name;
+  }
+
+
+  public void putRepresentation(StringWriter sw)
+  {
+    sw.write(this.name); 
   }
 };

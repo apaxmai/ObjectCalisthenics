@@ -1,5 +1,7 @@
 package jobseeker;
 
+import java.io.StringWriter;
+
 import hashcodeprovider.HashCodeProvider;
 import datastructures.IdentifyingType;
 
@@ -36,5 +38,11 @@ public class JobseekerID
   public String toString()
   {
     return name.toString();
+  }
+
+
+  public void putRepresentation(StringWriter sw)
+  {
+    name.putRepresentation(sw);
   }
 };

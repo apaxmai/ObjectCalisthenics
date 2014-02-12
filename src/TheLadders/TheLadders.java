@@ -1,36 +1,51 @@
 package TheLadders;
 
+import java.io.OutputStream;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+import job.AppliedJob;
 import job.Job;
 import jobapplication.JobApplication;
+import jobapplication.JobApplications;
 import jobseeker.Jobseeker;
 import datastructures.Triplet;
 import employer.Employer;
 
 public class TheLadders
 {
-
   private static ReportDecorator myCSVReportDecorator  = new CSVReportDecorator();
   private static ReportDecorator myHTMLReportDecorator = new HTMLReportDecorator();
 
-
-  public static void reportForJobApplicationsByDay(String date,
+  public static void reportForJobApplicationsByDay(JobApplications jobApplications,
+                                                   String date,
                                                    ReportFormatType theReportFormatType)
   {
     Report report = new Report();
-    List<JobApplication> applications = Globals.jobApplicationRepository.succeededJobApplicationsByDay(date);
 
-    for (JobApplication application : applications)
+    
+    for (JobApplication application : jobApplications )
     {
-      Job job = application.getJob(); // until i figure out how to do this, just do it. ( could be:
-                                      // Job job; application.putJob(job); )
-      Jobseeker jobseeker = application.getJobseeker();
-      Employer employer = job.creator();
-      report.addRow(employer.toString(), job.toString(), jobseeker.toString(), date.toString());
+      StringWriter sw = new StringWriter();
+      application.putEmployerRepresentation(sw);
+      String employerRepresentation = sw.toString();
+      
+      sw = new StringWriter();
+      application.putJobRepresentation(sw);
+      String jobRepresentation = sw.toString();
+      
+      sw = new StringWriter();
+      application.putJobseekerRepresentation(sw);
+      String jobseekerRepresentation = sw.toString();
+      
+      report.addRow(employerRepresentation,
+                    jobRepresentation,
+                    jobseekerRepresentation,
+                    date.toString());
     }
 
+    //todo, combine these using some polymorphism instead of typecheck
     if (ReportFormatType.CSV == theReportFormatType)
     {
       String decoratedReport = myCSVReportDecorator.decorate(report);
@@ -96,10 +111,11 @@ public class TheLadders
 
   // (12) TheLadders should be able to see how many job applications failed and how many succeeded
   // aggregated by job and employer.
-  public static void reportForAggregateJobApplicationsSuccessRate(ReportFormatType theReportFormatType)
+  public static void reportForAggregateJobApplicationsSuccessRate(JobApplications jobApplications,
+                                                                  ReportFormatType theReportFormatType)
   {
     Report report = new Report();
-
+/*
     // employer, job, applicationcount, ok%
 
     // this code is duplicated, need to combine into function //todo
@@ -137,7 +153,7 @@ public class TheLadders
     // for all entries for the aggregate report:
     // foreach job and employer
     // Globals.jobApplicationRepository.failedJobApplicationsByJob(job);
-
+*/
     if (ReportFormatType.CSV == theReportFormatType)
     {
       String decoratedReport = myCSVReportDecorator.decorate(report);

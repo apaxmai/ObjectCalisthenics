@@ -1,7 +1,6 @@
 package jobapplication;
 
 import job.AppliedJob;
-import job.Job;
 import jobseeker.Jobseeker;
 
 public class SuccessfulJobApplication extends JobApplication
